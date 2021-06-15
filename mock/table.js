@@ -13,12 +13,12 @@ const data = Mock.mock({
 
 module.exports = [
   {
-    url: '/vue-admin-template/table/list',
+    url: '/dockerMgrApi/table/list',
     type: 'get',
     response: config => {
       const items = data.items
       return {
-        code: 20000,
+        code: 100200,
         data: {
           total: items.length,
           items: items

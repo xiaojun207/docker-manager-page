@@ -10,36 +10,49 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.$index + 1}}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column label="Name" >
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+      <el-table-column label="ContainersRunning" width="170" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.ContainersRunning + "/" + scope.row.Containers }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
+      <el-table-column label="NCPU" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.pageviews }}
+          {{ scope.row.NCPU }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column label="MemTotal" width="110" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          {{ (scope.row.MemTotal/(1024*1024)).toFixed(3) + "MB" }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
+      <el-table-column align="center" prop="created_at" label="ServerVersion" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <span>{{ scope.row.ServerVersion }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="State" width="100" align="center">
+        <template slot-scope="scope">
+          <span  v-if="scope.row.State === 'connected'" style="color: #03c961;">{{ scope.row.State }}</span>
+          <span  v-if="scope.row.State !== 'connected'" style="color: #d70404;">{{ scope.row.State }}</span>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog :visible.sync="dialogDetailVisible" title="详情" @dragDialog="handleDrag">
+      <pre>
+{{ JSON.stringify(selectRow, null, 2)}}
+      </pre>
+    </el-dialog>
   </div>
 </template>
 
@@ -60,7 +73,9 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      dialogDetailVisible: false,
+      selectRow: {}
     }
   },
   created() {
@@ -70,9 +85,16 @@ export default {
     fetchData() {
       this.listLoading = true
       getList().then(response => {
-        this.list = response.data.items
+        this.list = response.data
         this.listLoading = false
       })
+    },
+    openDetail(row) {
+      this.selectRow = row
+      this.dialogDetailVisible = true
+    },
+    handleDrag() {
+      this.$refs.select.blur()
     }
   }
 }

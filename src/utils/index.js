@@ -94,6 +94,58 @@ export function formatTime(time, option) {
   }
 }
 
+export function formatDate(d) {
+  if (!d) {
+    return ''
+  }
+  d = d > 1022367529238 ? d : d * 1000
+
+  const date = new Date(d)
+  const YY = date.getFullYear() + '-'
+  const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+  const DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate())
+  const hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
+  const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':'
+  const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()) + '.'
+  let sss = ''
+  if (date.getMilliseconds() < 10) {
+    sss = '00' + date.getMilliseconds()
+  } else if (date.getMilliseconds() < 100) {
+    sss = '0' + date.getMilliseconds()
+  } else {
+    sss = date.getMilliseconds()
+  }
+  return YY + MM + DD + ' ' + hh + mm + ss + sss
+}
+
+/**
+ * @param {Array} actual
+ * @returns {Array}
+ */
+export function cleanArray(actual) {
+  const newArray = []
+  for (let i = 0; i < actual.length; i++) {
+    if (actual[i]) {
+      newArray.push(actual[i])
+    }
+  }
+  return newArray
+}
+
+/**
+ * @param {Object} json
+ * @returns {Array}
+ */
+export function param(json) {
+  if (!json) return ''
+  return cleanArray(
+    Object.keys(json).map(key => {
+      if (json[key] === undefined) return ''
+      return encodeURIComponent(key) + '=' + encodeURIComponent(json[key])
+    })
+  ).join('&')
+}
+
 /**
  * @param {string} url
  * @returns {Object}

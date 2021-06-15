@@ -26,7 +26,7 @@ const users = {
 module.exports = [
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: '/dockerMgrApi/user/login',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -41,7 +41,7 @@ module.exports = [
       }
 
       return {
-        code: 20000,
+        code: 100200,
         data: token
       }
     }
@@ -49,7 +49,7 @@ module.exports = [
 
   // get user info
   {
-    url: '/vue-admin-template/user/info\.*',
+    url: '/dockerMgrApi/user/info\.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -64,7 +64,7 @@ module.exports = [
       }
 
       return {
-        code: 20000,
+        code: 100200,
         data: info
       }
     }
@@ -72,11 +72,11 @@ module.exports = [
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/dockerMgrApi/user/logout',
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: 100200,
         data: 'success'
       }
     }
