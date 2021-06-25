@@ -46,6 +46,7 @@
           <span  v-if="scope.row.State !== 'connected'" style="color: #d70404;">{{ scope.row.State }}</span>
         </template>
       </el-table-column>
+
     </el-table>
 
     <el-dialog :visible.sync="dialogDetailVisible" title="详情" @dragDialog="handleDrag">
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { getList } from '@/api/container'
 
 export default {
   filters: {

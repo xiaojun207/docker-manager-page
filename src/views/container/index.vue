@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { getContainers, ContainerOperator, getServerNames, getContainerInfos } from '@/api/table'
+import { getContainers, ContainerOperator, getServerNames, getContainerInfos } from '@/api/container'
 import { formatDate } from '@/utils/index'
 import { PortsToStr, FormatName } from '@/utils/docker'
 

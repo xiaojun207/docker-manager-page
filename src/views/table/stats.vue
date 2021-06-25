@@ -83,7 +83,7 @@
 
 <script>
 import { getStatsList } from '@/api/stats'
-import { getContainerInfos, getServerNames } from '@/api/table'
+import { getContainerInfos, getServerNames } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
 import { formatMemory, formatMemory2, formatNet, formatCpu } from '@/utils/docker'
 

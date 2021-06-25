@@ -89,6 +89,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/config',
+    component: Layout,
+    redirect: '/config/agent',
+    name: 'Server',
+    meta: { title: '配置管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'agent',
+        name: 'Agent',
+        component: () => import('@/views/config/index'),
+        meta: { title: '客户端配置', icon: 'table' }
+      }
+    ]
+  },
+  {
     path: '/server',
     component: Layout,
     redirect: '/server/docker',

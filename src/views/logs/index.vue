@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getContainerInfos } from '@/api/table'
+import { getContainerInfos } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
 import { formatDate } from '@/utils/index'
 
