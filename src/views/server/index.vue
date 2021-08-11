@@ -20,23 +20,33 @@
       </el-table-column>
       <el-table-column label="ContainersRunning" width="170" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.ContainersRunning + "/" + scope.row.Containers }}</span>
+          <span>{{ scope.row.Running + "/" + scope.row.Containers }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="NCPU" width="110" align="center">
+      <el-table-column label="Cpu" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.NCPU }}
+          {{ scope.row.Cpu }}
         </template>
       </el-table-column>
       <el-table-column label="MemTotal" width="110" align="center">
         <template slot-scope="scope">
-          {{ (scope.row.MemTotal/(1024*1024)).toFixed(3) + "MB" }}
+          {{ (scope.row.Memory/(1024*1024)).toFixed(3) + "MB" }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Private IP" width="150" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.PrivateIp }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Public IP" width="150" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.PublicIp }}
         </template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="ServerVersion" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ scope.row.ServerVersion }}</span>
+          <span>{{ scope.row.DockerVersion }}</span>
         </template>
       </el-table-column>
 
@@ -58,7 +68,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/container'
+import { getServerList } from '@/api/container'
 
 export default {
   filters: {
@@ -85,7 +95,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
+      getServerList().then(response => {
         this.list = response.data
         this.listLoading = false
       })

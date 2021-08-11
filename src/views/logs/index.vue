@@ -80,7 +80,7 @@ export default {
 
           for (const j in tmp_server.children) {
             const tmp_container = tmp_server.children[j]
-            tmp_container.label = tmp_container.Names + ' - ' + tmp_container.State
+            tmp_container.label = tmp_container.Name + ' - ' + tmp_container.State
             tmp_container.value = tmp_container.Id
             tmp_server.children[j] = tmp_container
           }

@@ -113,7 +113,7 @@ export const constantRoutes = [
       {
         path: 'docker',
         name: 'Docker',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/server/index'),
         meta: { title: '服务器', icon: 'table' }
       }
     ]
@@ -135,7 +135,7 @@ export const constantRoutes = [
       {
         path: 'stats',
         name: 'Stats',
-        component: () => import('@/views/table/stats'),
+        component: () => import('@/views/server/stats'),
         meta: { title: '最新状态', icon: 'el-icon-date' }
       },
       {

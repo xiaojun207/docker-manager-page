@@ -13,14 +13,14 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="AppName"  width="270">
+      <el-table-column label="ServiceName"  width="270">
         <template slot-scope="scope">
-          <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.appName }} ({{ scope.row.ServerNames.length }})</el-button>
+          <el-button type="text" >{{ scope.row.ServiceName }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="ServerNames" align="center">
         <template slot-scope="scope">
-          <div v-for="name in scope.row.ServerNames">{{ name }}</div>
+          {{ scope.row.ServerName }}
         </template>
       </el-table-column>
 
@@ -46,14 +46,14 @@ export default {
     fetchData() {
       this.listLoading = true
       getAppGroup().then(r => {
-        this.list = []
-        for (const k in r.data) {
-          const item = {
-            'appName': k,
-            'ServerNames': r.data[k]
-          }
-          this.list.push(item)
-        }
+        this.list = r.data
+        // for (const k in r.data) {
+        //   const item = {
+        //     'appName': k,
+        //     'ServerNames': r.data[k]
+        //   }
+        //   this.list.push(item)
+        // }
         this.listLoading = false
       })
     }

@@ -2,18 +2,18 @@
   <el-table :data="list" style="width: 100%;padding-top: 15px;margin-left: 15px;">
     <el-table-column label="任务" min-width="200">
       <template slot-scope="scope">
-        {{ scope.row.ch | orderNoFilter }}
+        {{ scope.row.Ch | orderNoFilter }}
       </template>
     </el-table-column>
     <el-table-column label="目标服务器" width="195" align="center">
       <template slot-scope="scope">
-        {{ scope.row.serverName }}
+        {{ scope.row.ServerName }}
       </template>
     </el-table-column>
     <el-table-column label="Status" width="100" align="center">
       <template slot-scope="{row}">
-        <el-tag :type="row.code | statusFilter">
-          {{ statusFilter(row.code) }}
+        <el-tag :type="row.Code | statusFilter">
+          {{ statusFilter(row.Code) }}
         </el-tag>
       </template>
     </el-table-column>

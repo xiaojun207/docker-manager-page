@@ -52,7 +52,7 @@
           {{ scope.row.Status }}
         </template>
       </el-table-column>
-      <el-table-column label="State" width="100" align="center">
+      <el-table-column label="State" width="80" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.State === 'running'" style="color: #03c961;">{{ scope.row.State }}</span>
           <span v-if="scope.row.State !== 'running'" style="color: #d70404;">{{ scope.row.State }}</span>
@@ -63,11 +63,11 @@
           <div v-for="item in scope.row.Ports" :key="item.key">{{ PortToStr(item) }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="Command" width="200" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.Command }}
-        </template>
-      </el-table-column>
+<!--      <el-table-column label="Command" width="200" align="center">-->
+<!--        <template slot-scope="scope">-->
+<!--          {{ scope.row.Command }}-->
+<!--        </template>-->
+<!--      </el-table-column>-->
 <!--      <el-table-column label="Mounts">-->
 <!--        <template slot-scope="scope">-->
 <!--          <div v-for="item in scope.row.Mounts" :key="item.key">{{ item.Source + ' : ' + item.Destination }}</div>-->
@@ -119,7 +119,9 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [],
+      groupList: [],
+      groups: {},
       listLoading: true,
       dialogDetailVisible: false,
       selectRow: {},
@@ -136,9 +138,6 @@ export default {
     }
   },
   computed: {
-    groupNum() { // 获取班级列表数组
-      return new Set(this.list.map(o => o.ServerName))
-    }
   },
   created() {
     this.fetchData()
@@ -179,7 +178,7 @@ export default {
         this.res.ContainerNames = []
         for (const i in d) {
           for (const j in d[i].containers) {
-            const name = d[i].containers[j].Names
+            const name = d[i].containers[j].Name
 
             if (this.res.ContainerNames.indexOf(name) === -1) {
               this.res.ContainerNames.push(name)
@@ -191,40 +190,45 @@ export default {
     },
     fetchData() {
       this.listLoading = true
-      getContainers(this.listQuery).then(response => {
-        this.list = response.data
+      getContainers(this.listQuery).then(r => {
+        this.list = r.data
+        this.list.sort(function(a, b) {
+          return a.ServerName.localeCompare(b.ServerName)
+        })
+        this.groupList = new Set(this.list.map(o => o.ServerName))
+        this.groups = {}
+        for (let i = 0; i < this.list.length; i++) {
+          const item = this.list[i]
+          let group = this.groups[item.ServerName]
+          if (!group) {
+            group = {
+              ServerName: item.ServerName,
+              Members: 0,
+              StartIdx: i
+            }
+          }
+          group.Members = group.Members + 1
+          this.groups[item.ServerName] = group
+        }
         this.listLoading = false
       })
     },
-    classGroup(name) {
-      return this.list.filter(o => o.ServerName === name).length
-    },
-    classNameLen(name) {
-      const tmp = Array.from(this.groupNum)
-      const index = tmp.indexOf(name)
-      let len = 0
-      for (let i = 0; i < index; i++) {
-        len += this.classGroup(tmp[i])
-      }
-      return len
-    },
     spanMethod(data) { // 对于表格数据进行分组合并操作，UI组件回调函数
       const { row, rowIndex, columnIndex } = data
-      if (columnIndex === 1) { // 班级合并展示区
-        const len = this.classGroup(row.ServerName)
-        const lenName = this.classNameLen(row.ServerName)
-        if (rowIndex === lenName) { // 某班级首位学生行
+      if (columnIndex === 1) { // ServerName合并展示区
+        const group = this.groups[row.ServerName]
+        if (rowIndex === group.StartIdx) { // ServerName首位学生行
           return {
-            rowspan: len,
+            rowspan: group.Members,
             colspan: 1
           }
         } else {
-          return { // 某班级非首位学生行
+          return {
             rowspan: 0,
             colspan: 0
           }
         }
-      } else { // 学生信息展示区
+      } else {
         return {
           rowspan: 1,
           colspan: 1

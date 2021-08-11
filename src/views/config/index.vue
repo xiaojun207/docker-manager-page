@@ -2,16 +2,37 @@
   <div class="app-container">
     <div style="margin-bottom: 15px;">
     </div>
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-table
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+    >
+      <el-table-column align="center" label="ID" width="95">
+        <template slot-scope="scope">
+          {{ scope.$index + 1 }}
+        </template>
+      </el-table-column>
+      <el-table-column label="字段名称"  width="270">
+        <template slot-scope="scope">
+          <el-button type="text" >{{ scope.row.Name }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="值" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.Value }}
+        </template>
+      </el-table-column>
 
-      <el-form-item label="任务提交频率">
-        <el-input-number v-model="form.TaskFrequency" placeholder="容器名称"  controls-position="right" :min="0"></el-input-number>秒
-      </el-form-item>
+      <el-table-column label="备注"  width="270">
+        <template slot-scope="scope">
+          {{ scope.row.Memo }}
+        </template>
+      </el-table-column>
+    </el-table>
 
-      <el-form-item>
-        <el-button type="primary" style="width: 200px" @click="onSubmit">发布</el-button>
-      </el-form-item>
-    </el-form>
   </div>
 </template>
 
@@ -21,6 +42,7 @@ import { getConfig, updateConfig } from '@/api/config'
 export default {
   data() {
     return {
+      list:[],
       form: {
         TaskFrequency: 600
       }
@@ -41,7 +63,7 @@ export default {
     fetchData() {
       this.listLoading = true
       getConfig().then(resp => {
-        this.form.TaskFrequency = resp.data.agentConfig.TaskFrequency
+        this.list = resp.data
         this.listLoading = false
       })
     }

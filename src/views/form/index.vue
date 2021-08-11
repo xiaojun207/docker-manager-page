@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div style="margin-bottom: 15px;">
-      <el-input type="textarea" :rows="5" placeholder="临时记录区域" v-model="formTmp.tempText"/>
+      <el-input v-model="formTmp.tempText" type="textarea" :rows="5" placeholder="临时记录区域" />
     </div>
     <el-form ref="form" :model="form" label-width="120px">
 
@@ -13,8 +13,7 @@
       </el-form-item>
 
       <el-form-item label="内存(M)">
-        <el-input-number v-model="formTmp.Memory" :controls="false" placeholder="内存，如：128"  style="width: 210px">
-        </el-input-number>
+        <el-input-number v-model="formTmp.Memory" :controls="false" placeholder="内存，如：128" style="width: 210px" />
         <el-input disabled placeholder="M" style="width: 50px" />
       </el-form-item>
       <el-form-item label="端口映射">
@@ -25,10 +24,10 @@
           </el-input>
           <span style="color: #2b2b2b"> -> </span>
           <el-input v-model="item.PrivatePort" placeholder="8080" style="width: 200px">
-            <el-select v-model="item.Type" slot="append" placeholder="TCP" style="width: 80px">
-              <el-option label="TCP" value="tcp"></el-option>
-              <el-option label="UDP" value="udp"></el-option>
-              <el-option label="SCTP" value="sctp"></el-option>
+            <el-select slot="append" v-model="item.Type" placeholder="TCP" style="width: 80px">
+              <el-option label="TCP" value="tcp" />
+              <el-option label="UDP" value="udp" />
+              <el-option label="SCTP" value="sctp" />
             </el-select>
           </el-input>
           <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delPort(item, index)" />
@@ -38,18 +37,18 @@
         <el-button type="success" size="small" icon="el-icon-plus" @click="addVolume()">添加</el-button>
         <el-link type="info" :underline="false" href="https://docs.docker.com/storage/bind-mounts/#start-a-container-with-a-bind-mount" style="margin-left: 10px;">Bind模式相当于docker -v参数。如何挂载卷？</el-link>
         <div v-for="(item, index) in formTmp.Volumes" :key="item.hostPath" :items="formTmp.Volumes" style="margin-top: 10px">
-          <el-input v-model="item.Source" placeholder="源地址(宿主机地址)" style="width: 400px" >
-            <el-select v-model="item.Type" disabled slot="prepend" placeholder="绑定方式" style="width: 100px">
-              <el-option label="Bind" value="bind"></el-option>
-              <el-option label="Volume" value="volume"></el-option>
-              <el-option label="Tmpfs" value="tmpfs"></el-option>
+          <el-input v-model="item.Source" placeholder="源地址(宿主机地址)" style="width: 400px">
+            <el-select slot="prepend" v-model="item.Type" disabled placeholder="绑定方式" style="width: 100px">
+              <el-option label="Bind" value="bind" />
+              <el-option label="Volume" value="volume" />
+              <el-option label="Tmpfs" value="tmpfs" />
             </el-select>
           </el-input>
           <span style="color: #2b2b2b"> : </span>
-          <el-input v-model="item.Destination" placeholder="容器内地址" style="width: 400px" >
-            <el-select v-model="item.RW" clearable slot="append" placeholder="" style="width: 80px;">
-              <el-option label="读写" value=":rw"></el-option>
-              <el-option label="只读" value=":ro"></el-option>
+          <el-input v-model="item.Destination" placeholder="容器内地址" style="width: 400px">
+            <el-select slot="append" v-model="item.RW" clearable placeholder="" style="width: 80px;">
+              <el-option label="读写" value=":rw" />
+              <el-option label="只读" value=":ro" />
             </el-select>
           </el-input>
           <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delVolume(item, index)" />
@@ -79,6 +78,11 @@
           <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delLogConfig(item, index)" />
         </div>
       </el-form-item>
+
+<!--      <el-form-item label="副本数量">-->
+<!--        <el-input-number v-model="formTmp.Replicas" :controls="false" :min="1" :max="10" :step="1" :step-strictly="true" placeholder="副本数量，如：1" style="width: 210px" />-->
+<!--        <a style="width: 350px;margin-left: 10px;color:#807b7b">副本数量，如：1</a>-->
+<!--      </el-form-item>-->
       <el-form-item label="目标服务器">
         <el-select v-model="form.ServerNames" multiple filterable placeholder="ServerName" clearable class="filter-item" style="width: 100%">
           <el-option v-for="item in res.ServerNames" :key="item" :label="item" :value="item" />
@@ -119,6 +123,7 @@ export default {
         Volumes: [], // [{ 'Source': '', 'Destination': '', 'RW': true, 'Mode': '', 'Type': 'bind', 'Propagation': 'rprivate' }]
         LogConfig: [],
         Memory: 0,
+        Replicas: 1,
         tempText: ''
       },
       form: {

@@ -39,24 +39,24 @@
           <span>{{ scope.row.ServerName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="cpu_stats" width="150" align="center">
+      <el-table-column label="CpuStats" width="150" align="center">
         <template slot-scope="scope">
-          {{ formatCpu(scope.row.cpu_stats) }}
+          {{ formatCpu(scope.row.CpuStats) }}
         </template>
       </el-table-column>
-      <el-table-column label="memory_stats" min-width="180" align="center">
+      <el-table-column label="MemoryStats" min-width="180" align="center">
         <template slot-scope="scope">
-          {{ formatMemory(scope.row.memory_stats) }}
+          {{ formatMemory(scope.row.MemoryStats) }}
         </template>
       </el-table-column>
       <el-table-column label="MEM %" min-width="150" align="center">
         <template slot-scope="scope">
-          {{ formatMemory2(scope.row.memory_stats) }}
+          {{ formatMemory2(scope.row.MemoryStats) }}
         </template>
       </el-table-column>
-      <el-table-column label="networks" width="210" align="center">
+      <el-table-column label="Networks" width="210" align="center">
         <template slot-scope="scope">
-          {{ formatNet(scope.row.networks) }}
+          {{ formatNet(scope.row.Networks) }}
         </template>
       </el-table-column>
       <el-table-column label="实时日志" width="100" align="center">
@@ -136,7 +136,7 @@ export default {
         this.res.ContainerNames = []
         for (const i in d) {
           for (const j in d[i].containers) {
-            const name = d[i].containers[j].Names
+            const name = d[i].containers[j].Name
             if (this.res.ContainerNames.indexOf(name) === -1) {
               this.res.ContainerNames.push(name)
             }

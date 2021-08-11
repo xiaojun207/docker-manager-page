@@ -15,42 +15,43 @@
       </el-table-column>
       <el-table-column label="命令" >
         <template slot-scope="scope">
-          {{ scope.row.ch }}
+          {{ scope.row.Ch }}
         </template>
       </el-table-column>
       <el-table-column label="serverName" width="170" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.serverName}}</span>
+          <span>{{ scope.row.ServerName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="TaskId" align="center">
         <template slot-scope="scope">
-          {{ scope.row.taskId }}
+          {{ scope.row.TaskId }}
         </template>
       </el-table-column>
       <el-table-column label="参数" align="center">
         <template slot-scope="scope">
-          {{ scope.row.param }}
+          <el-button type="text" >查看参数</el-button>
+<!--          {{ scope.row.Param }}-->
         </template>
       </el-table-column>
 
       <el-table-column label="信息" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.msg }}
+          {{ scope.row.Msg }}
         </template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="发布时间" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ formatTime(scope.row.ts) }}</span>
+          <span>{{ formatTime(scope.row.Ts) }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="状态" width="100" align="center">
         <template slot-scope="scope">
-          <span  v-if="scope.row.code === '000000'" style="color: #4573fa;">正在进行</span>
-          <span  v-if="scope.row.code === '100100'" style="color: #d70404;">失败</span>
-          <span  v-if="scope.row.code === '100200'" style="color: #03c961;">成功</span>
+          <span  v-if="scope.row.Code === '000000'" style="color: #4573fa;">正在进行</span>
+          <span  v-if="scope.row.Code === '100100'" style="color: #d70404;">失败</span>
+          <span  v-if="scope.row.Code === '100200'" style="color: #03c961;">成功</span>
         </template>
       </el-table-column>
     </el-table>
@@ -92,8 +93,8 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getTasks().then(response => {
-        this.list = response.data
+      getTasks().then(r => {
+        this.list = r.data
         this.listLoading = false
       })
     },

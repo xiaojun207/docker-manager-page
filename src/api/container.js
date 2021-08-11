@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getServerList(params) {
   return request({
     url: '/mgr/servers',
     method: 'get',
