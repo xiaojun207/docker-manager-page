@@ -147,7 +147,7 @@ export default {
   methods: {
     ContainerOperator(operator, row) {
       this.listLoading = true
-      const data = { 'containerId': row.Id, 'serverNames': [row.ServerName] }
+      const data = { 'containerId': row.ContainerId, 'serverNames': [row.ServerName] }
       ContainerOperator(operator, data).then(resp => {
         if (resp.code === '100200') {
           this.$message({

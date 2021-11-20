@@ -154,7 +154,7 @@ export default {
     },
     startLog(row) {
       const form = {
-        'containerId': row.id
+        'containerId': row.ContainerId
       }
       this.loading = true
       getLogStart(form).then(resp => {
@@ -167,7 +167,7 @@ export default {
     },
     closeLog(row) {
       const form = {
-        'containerId': row.id
+        'containerId': row.ContainerId
       }
       this.loading = true
       getLogClose(form).then(resp => {
