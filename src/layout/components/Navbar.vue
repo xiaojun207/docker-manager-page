@@ -16,6 +16,11 @@
               首页
             </el-dropdown-item>
           </router-link>
+          <router-link to="/user/alterpassword">
+            <el-dropdown-item>
+              密码修改
+            </el-dropdown-item>
+          </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>

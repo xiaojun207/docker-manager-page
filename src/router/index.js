@@ -54,6 +54,28 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
+
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/alterpassword',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'el-icon-grape' },
+    children: [
+      {
+        path: 'index',
+        name: 'UserIndex',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户列表', icon: 'el-icon-notebook-2' }
+      },
+      {
+        path: 'alterpassword',
+        name: 'AlterPassword',
+        component: () => import('@/views/user/alterpassword'),
+        meta: { title: '密码修改', icon: 'dashboard' }
+      }
+    ]
+  },
   {
     path: '/app',
     component: Layout,
