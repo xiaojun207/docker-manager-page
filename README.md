@@ -87,4 +87,27 @@ Modern browsers and Internet Explorer 10+.
 
 [MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
 
-Copyright (c) 2017-present PanJiaChen
+Copyright (c) 2017-present Xiaojun
+
+
+## docker dev start and build
+
+pre
+```
+docker pull docker-manager-page:latest
+
+or
+
+docker build -t docker-manager-page:dev1.0.0 -f ./deploy/Dockerfile .
+docker tag docker-manager-page:dev1.0.0 docker-manager-page:latest
+```
+
+start
+```
+docker run --rm -p 9528:9528 -v `pwd`/src:/app/src -v `pwd`/dist:/app/dist -v `pwd`/static:/app/static -v `pwd`/config:/app/config -v `pwd`/build:/app/build -v `pwd`/gulpfile.js:/app/gulpfile.js -v `pwd`/.postcssrc.js:/app/.postcssrc.js -v `pwd`/index.html:/app/index.html docker-manager-page:latest
+```
+
+build
+```
+docker run --rm  -v `pwd`/src:/app/src -v `pwd`/dist:/app/dist -v `pwd`/static:/app/static -v `pwd`/config:/app/config -v `pwd`/build:/app/build -v `pwd`/gulpfile.js:/app/gulpfile.js -v `pwd`/.postcssrc.js:/app/.postcssrc.js -v `pwd`/index.html:/app/index.html docker-manager-page:latest npm run build
+```

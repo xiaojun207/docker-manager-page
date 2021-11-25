@@ -24,9 +24,25 @@ export function getUserList() {
   })
 }
 
+export function changeStatus(data) {
+  return request({
+    url: '/user/changeStatus',
+    method: 'post',
+    data
+  })
+}
+
 export function alterPassword(data) {
   return request({
     url: '/user/alterPassword',
+    method: 'post',
+    data
+  })
+}
+
+export function resetPassword(data) {
+  return request({
+    url: '/user/resetPassword',
     method: 'post',
     data
   })

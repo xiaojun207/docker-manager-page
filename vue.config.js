@@ -15,8 +15,8 @@ const name = defaultSettings.title || 'Docker Manager' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
-// const TargetHost = '127.0.0.1:8068'
-const TargetHost = 'dockermgr.super.com'
+const TargetHost = '127.0.0.1:8068'
+// const TargetHost = 'dockermgr.super.com'
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
