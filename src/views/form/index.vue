@@ -55,7 +55,7 @@
         </div>
       </el-form-item>
       <el-form-item :label="$t('环境变量')">
-        <el-button type="success" size="small" icon="el-icon-plus" @click="addEnv()">添加</el-button>
+        <el-button type="success" size="small" icon="el-icon-plus" @click="addEnv()">{{ $t('添加') }}</el-button>
         <div v-for="(item, index) in formTmp.Env" :key="index" :value="item" :items="formTmp.Env" style="margin-top: 10px">
           <el-input v-model="item.key" :placeholder="$t('变量key')" style="width: 400px" />
           <span style="color: #2b2b2b"> = </span>
