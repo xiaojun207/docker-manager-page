@@ -38,7 +38,7 @@
           {{ scope.row.role }}
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center">
+      <el-table-column :label="$t('状态')" align="center">
         <template slot-scope="scope">
           {{ formatStatus(scope.row.status) }}
         </template>
@@ -53,10 +53,10 @@
           {{ formatDate(scope.row.update_date) }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
-        <template slot-scope="scope"  :loading="scope.row.Loading" >
-          <el-button @click="changeStatus(scope.row, scope.row.status === 0 ? 1 : 0)" size="small" type="text">{{scope.row.status === 0 ? '禁用':'恢复'}}</el-button>
-          <el-button @click="resetPassword(scope.row)" size="small" type="text">密码重置</el-button>
+      <el-table-column :label="$t('操作')" align="center">
+        <template slot-scope="scope" :loading="scope.row.Loading">
+          <el-button size="small" type="text" @click="changeStatus(scope.row, scope.row.status === 0 ? 1 : 0)">{{ scope.row.status === 0 ? $t('禁用'):$t('恢复') }}</el-button>
+          <el-button size="small" type="text" @click="resetPassword(scope.row)">{{ $t("密码重置") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -89,7 +89,7 @@ export default {
       return formatDate(t)
     },
     formatStatus(s) {
-      return s === 0 ? '正常' : '禁用'
+      return s === 0 ? this.$t('正常') : this.$t('禁用')
     },
     changeStatus(r, s) {
       r.Loading = true
@@ -109,8 +109,8 @@ export default {
       }
       resetPassword(data).then(r => {
         r.Loading = false
-        this.$alert('密码仅显示一次，请备份：' + r.data, '密码重置成功', {
-          confirmButtonText: '确定'
+        this.$alert(this.$t('密码仅显示一次，请备份：') + r.data, this.$t('密码重置成功'), {
+          confirmButtonText: this.$t('确定')
         })
         this.fetchData()
       })

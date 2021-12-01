@@ -4,7 +4,7 @@
       v-model="form.containerId"
       :disabled="isConnected"
       filterable
-      placeholder="目标容器"
+      :placeholder="$t('目标容器')"
       clearable
       :options="res.containerInfos"
       :props="{ expandTrigger: 'hover', emitPath: false }"
@@ -12,12 +12,12 @@
     >
 
     </el-cascader>
-    <el-checkbox v-model="showSystemTime" style="margin-right: 10px">显示日志系统时间 </el-checkbox>
+    <el-checkbox v-model="showSystemTime" style="margin-right: 10px">{{ $t('显示日志系统时间') }} </el-checkbox>
     <el-button :loading="loading" class="filter-item" type="primary" icon="el-icon-search" :disabled="isConnected" @click="fetchLogData()">
-      连接日志
+      {{ $t('连接日志') }}
     </el-button>
     <el-button :loading="loading" class="filter-item" type="primary" :disabled="!isConnected" @click="disconnectLog()">
-      断开连接
+      {{ $t('断开连接') }}
     </el-button>
     <el-link :underline="false">  </el-link>
     <div class="console">
@@ -97,12 +97,12 @@ export default {
     },
     fetchLogData() {
       if (!this.form.containerId) {
-        this.$message('必须选择容器')
+        this.$message(this.$t('必须选择容器'))
         return
       }
 
       this.loading = true
-      this.listLogs = [{ 'ts': '', 'line': '正在连接...' }]
+      this.listLogs = [{ 'ts': '', 'line': this.$t('正在连接...') }]
       console.log('fetchLogData', this.form)
       getLogStart(this.form).then(resp => {
         this.loading = false
@@ -133,7 +133,7 @@ export default {
     websocketonopen() {
       this.isConnected = true
       console.log('WebSocket连接成功')
-      this.listLogs.push({ 'ts': '', 'line': '连接成功.' })
+      this.listLogs.push({ 'ts': '', 'line': this.$t('连接成功.') })
       const d = {
         'ch': 'base.ht.ping'
       }
@@ -142,7 +142,7 @@ export default {
     websocketonerror(e) { // 错误
       this.isConnected = false
       console.log('WebSocket连接发生错误', e)
-      this.listLogs.push({ 'ts': '', 'line': '连接发生错误.' })
+      this.listLogs.push({ 'ts': '', 'line': this.$t('连接发生错误.') })
     },
     websocketonmessage(e) { // 数据接收
       const msg = JSON.parse(e.data)
@@ -158,7 +158,7 @@ export default {
     websocketclose(e) { // 关闭
       this.isConnected = false
       console.log('connection closed ', e)
-      this.listLogs.push({ 'ts': '', 'line': '连接已关闭.' })
+      this.listLogs.push({ 'ts': '', 'line': this.$t('连接已关闭.') })
     },
     formatDate(d) {
       return formatDate(d)

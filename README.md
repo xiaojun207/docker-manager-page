@@ -98,8 +98,8 @@ docker pull docker-manager-page:latest
 
 or
 
-docker build -t docker-manager-page:dev1.0.0 -f ./deploy/Dockerfile .
-docker tag docker-manager-page:dev1.0.0 docker-manager-page:latest
+docker build -t docker-manager-page:latest -f ./deploy/Dockerfile .
+docker tag docker-manager-page:latest docker-manager-page:dev1.0.0
 ```
 
 start

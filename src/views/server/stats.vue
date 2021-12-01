@@ -1,15 +1,15 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-select v-model="listQuery.serverNames" multiple filterable placeholder="服务器" clearable collapse-tags class="filter-item" style="width: 300px">
+      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.ContainerNames" multiple filterable placeholder="容器名称" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
+      <el-select v-model="listQuery.ContainerNames" multiple filterable :placeholder="$t('容器名称')" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
         <el-option v-for="item in res.ContainerNames" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.Follow" placeholder="是否开启日志" clearable filterable style="width: 140px;margin-left: 10px;margin-right: 10px;" class="filter-item">
-        <el-option key="true" label="是" value="true" />
-        <el-option key="false" label="否" value="false" />
+      <el-select v-model="listQuery.Follow" :placeholder="$t('是否开启日志')" clearable filterable style="width: 140px;margin-left: 10px;margin-right: 10px;" class="filter-item">
+        <el-option key="true" :label="$t('是')" value="true" />
+        <el-option key="false" :label="$t('否')" value="false" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="fetchData">
         Search
@@ -59,21 +59,21 @@
           {{ formatNet(scope.row.Networks) }}
         </template>
       </el-table-column>
-      <el-table-column label="实时日志" width="100" align="center">
+      <el-table-column :label="$t('实时日志')" width="100" align="center">
         <template slot-scope="scope">
-          <span  v-if="scope.row.Follow" style="color: #03c961;">已开启</span>
-          <span  v-if="!scope.row.Follow" style="color: #d70404;">未开启</span>
+          <span  v-if="scope.row.Follow" style="color: #03c961;">{{ $t('已开启')}}</span>
+          <span  v-if="!scope.row.Follow" style="color: #d70404;">{{ $t('未开启')}}</span>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="操作" width="220" align="center">
+      <el-table-column class-name="status-col" :label="$t('操作')" width="220" align="center">
         <template slot-scope="scope">
-          <el-button :loading="listLoading" :disabled="scope.row.Follow" type="text" @click="startLog(scope.row )">开启日志</el-button>
-          <el-button :loading="listLoading" :disabled="!scope.row.Follow" type="text" @click="closeLog(scope.row )">关闭日志</el-button>
+          <el-button :loading="listLoading" :disabled="scope.row.Follow" type="text" @click="startLog(scope.row )">{{ $t('开启日志') }}</el-button>
+          <el-button :loading="listLoading" :disabled="!scope.row.Follow" type="text" @click="closeLog(scope.row )">{{ $t('关闭日志') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :visible.sync="dialogDetailVisible" title="详情">
+    <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
       </pre>
@@ -159,7 +159,7 @@ export default {
       this.loading = true
       getLogStart(form).then(resp => {
         this.loading = false
-        this.$message('命令已下发')
+        this.$message(this.$t('命令已下发'))
       }).catch(resp => {
         this.loading = false
         this.$message(resp.msg)
@@ -172,7 +172,7 @@ export default {
       this.loading = true
       getLogClose(form).then(resp => {
         this.loading = false
-        this.$message('命令已下发')
+        this.$message(this.$t('命令已下发'))
       }).catch(resp => {
         this.loading = false
       })

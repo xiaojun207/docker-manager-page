@@ -5,6 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <lang />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -13,16 +14,16 @@
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              首页
+              {{ $t("首页") }}
             </el-dropdown-item>
           </router-link>
           <router-link to="/user/alterpassword">
             <el-dropdown-item>
-              密码修改
+              {{ $t("密码修改") }}
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">退出</span>
+            <span style="display:block;">{{ $t("退出") }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -34,11 +35,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Lang from '@/components/Lang'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Lang
   },
   computed: {
     ...mapGetters([
@@ -136,3 +139,4 @@ export default {
   }
 }
 </style>
+

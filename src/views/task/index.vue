@@ -10,17 +10,17 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index + 1}}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="命令" >
+      <el-table-column :label="$t('命令')">
         <template slot-scope="scope">
           {{ scope.row.Ch }}
         </template>
       </el-table-column>
       <el-table-column label="serverName" width="170" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.ServerName}}</span>
+          <span>{{ scope.row.ServerName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="TaskId" align="center">
@@ -28,30 +28,30 @@
           {{ scope.row.TaskId }}
         </template>
       </el-table-column>
-      <el-table-column label="参数" align="center">
-        <template slot-scope="scope">
-          <el-button type="text" >查看参数</el-button>
-<!--          {{ scope.row.Param }}-->
-        </template>
-      </el-table-column>
+<!--      <el-table-column label="参数" align="center">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button type="text" >查看参数</el-button>-->
+<!--&lt;!&ndash;          {{ scope.row.Param }}&ndash;&gt;-->
+<!--        </template>-->
+<!--      </el-table-column>-->
 
-      <el-table-column label="信息" width="110" align="center">
+      <el-table-column :label="$t('信息')" width="110" align="center">
         <template slot-scope="scope">
           {{ scope.row.Msg }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="发布时间" width="200">
+      <el-table-column align="center" prop="created_at" :label="$t('发布时间')" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span>{{ formatTime(scope.row.Ts) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="状态" width="100" align="center">
+      <el-table-column :label="$t('状态')" width="100" align="center">
         <template slot-scope="scope">
-          <span  v-if="scope.row.Code === '000000'" style="color: #4573fa;">正在进行</span>
-          <span  v-if="scope.row.Code === '100100'" style="color: #d70404;">失败</span>
-          <span  v-if="scope.row.Code === '100200'" style="color: #03c961;">成功</span>
+          <span v-if="scope.row.Code === '000000'" style="color: #4573fa;">{{ $t('正在进行') }}</span>
+          <span v-if="scope.row.Code === '100100'" style="color: #d70404;">{{ $t('失败') }}</span>
+          <span v-if="scope.row.Code === '100200'" style="color: #03c961;">{{ $t('成功') }}</span>
         </template>
       </el-table-column>
     </el-table>

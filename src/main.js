@@ -15,6 +15,8 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import i18n from './i18n'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -37,6 +39,7 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
+  i18n,
   router,
   store,
   render: h => h(App)

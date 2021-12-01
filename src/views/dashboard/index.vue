@@ -3,11 +3,11 @@
 
     <div class="filter-container" style="margin-left: 15px;margin-top: 15px">
       <el-button class="filter-item" type="primary" :loading="loading" icon="el-icon-refresh" @click="refreshContainerList">
-        刷新容器列表
+        {{ $t("刷新容器列表") }}
       </el-button>
 
       <el-button class="filter-item" type="primary" :loading="loading" icon="el-icon-refresh" @click="refreshContainerStats">
-        刷新容器状态
+        {{ $t("刷新容器状态") }}
       </el-button>
     </div>
     <panel-group  />
@@ -40,14 +40,14 @@ export default {
       this.loading = true
       refreshContainerList().then(resp => {
         this.loading = false
-        this.$message('刷新成功')
+        this.$message(this.$t('刷新成功'))
       })
     },
     refreshContainerStats() {
       this.loading = true
       refreshContainerStats().then(resp => {
         this.loading = false
-        this.$message('刷新成功')
+        this.$message(this.$t('刷新成功'))
       })
     }
   }
@@ -65,3 +65,4 @@ export default {
   }
 }
 </style>
+

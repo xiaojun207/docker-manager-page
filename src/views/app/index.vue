@@ -43,10 +43,10 @@
           <div v-for="item in scope.row.scope" :key="item.key">{{ item }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column :label="$t('操作')" align="center">
         <template slot-scope="scope">
-          <el-button :loading="listLoading" @click="delApp(scope.row)" size="small" type="text">删除</el-button>
-          <el-button :loading="listLoading" @click="updateApp(scope.row)" size="small" type="text">更新</el-button>
+          <el-button :loading="listLoading" @click="delApp(scope.row)" size="small" type="text">{{ $t("删除") }}</el-button>
+          <el-button :loading="listLoading" @click="updateApp(scope.row)" size="small" type="text">{{ $t("更新") }}</el-button>
         </template>
       </el-table-column>
     </el-table>

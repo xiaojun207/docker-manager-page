@@ -15,18 +15,18 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="字段名称"  width="270">
+      <el-table-column :label="$t('字段名称')"  width="270">
         <template slot-scope="scope">
           <el-button type="text" >{{ scope.row.Name }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="值" align="center">
+      <el-table-column :label="$t('值')" align="center">
         <template slot-scope="scope">
           {{ scope.row.Value }}
         </template>
       </el-table-column>
 
-      <el-table-column label="备注"  width="270">
+      <el-table-column :label="$t('备注')"  width="270">
         <template slot-scope="scope">
           {{ scope.row.Memo }}
         </template>
@@ -56,7 +56,7 @@ export default {
       this.listLoading = true
       console.log('this.form:', this.form)
       updateConfig(this.form).then(resp => {
-        this.$message('发布成功')
+        this.$message(this.$t('发布成功'))
         this.listLoading = false
       })
     },

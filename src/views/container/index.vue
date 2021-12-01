@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-select v-model="listQuery.serverNames" multiple filterable placeholder="服务器" clearable collapse-tags class="filter-item" style="width: 300px">
+      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
       </el-select>
-      <el-select v-model="listQuery.ContainerNames" multiple filterable placeholder="容器名称" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
+      <el-select v-model="listQuery.ContainerNames" multiple filterable :placeholder="$t('容器名称')" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
         <el-option v-for="item in res.ContainerNames" :key="item" :label="item" :value="item" />
       </el-select>
       <el-select v-model="listQuery.state" placeholder="state" clearable filterable style="width: 140px;margin-left: 10px;margin-right: 10px;" class="filter-item">
@@ -85,15 +85,15 @@
 <!--          <span>{{ formatDate(scope.row.Update) }}</span>-->
 <!--        </template>-->
 <!--      </el-table-column>-->
-      <el-table-column class-name="status-col" label="操作" width="170" align="center">
+      <el-table-column class-name="status-col" :label="$t('操作')" width="170" align="center">
         <template slot-scope="scope">
-          <el-button :loading="listLoading" :disabled="scope.row.State !== 'running'" type="text" @click="ContainerOperator('stop', scope.row )">停止</el-button>
-          <el-button :loading="listLoading" type="text" @click="ContainerOperator('remove', scope.row )">删除</el-button>
-          <el-button :loading="listLoading" type="text" @click="ContainerOperator('restart', scope.row )">重启</el-button>
+          <el-button :loading="listLoading" :disabled="scope.row.State !== 'running'" type="text" @click="ContainerOperator('stop', scope.row )">{{ $t('停止') }}</el-button>
+          <el-button :loading="listLoading" type="text" @click="ContainerOperator('remove', scope.row )">{{ $t('删除') }}</el-button>
+          <el-button :loading="listLoading" type="text" @click="ContainerOperator('restart', scope.row )">{{ $t('重启') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialogDetailVisible" title="详情">
+    <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
       </pre>
@@ -151,7 +151,7 @@ export default {
       ContainerOperator(operator, data).then(resp => {
         if (resp.code === '100200') {
           this.$message({
-            message: '命令下发成功',
+            message: this.$t('命令下发成功'),
             type: 'success'
           })
           // this.fetchData()
