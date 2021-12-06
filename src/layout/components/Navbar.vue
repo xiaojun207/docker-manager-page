@@ -5,6 +5,9 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <a href="https://hub.docker.com/r/xiaojun207/docker-manager/tags" target="_blank">
+        <div v-if="version.upgrade" style="float: left;margin-right: 10px;color: #d70404">{{ $t('当前版本') }} : {{ version.current}}</div>
+      </a>
       <lang />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -17,17 +20,38 @@
               {{ $t("首页") }}
             </el-dropdown-item>
           </router-link>
-          <router-link to="/user/alterpassword">
+
+          <el-button type="text" @click="dialogVisible=true">
             <el-dropdown-item>
               {{ $t("密码修改") }}
             </el-dropdown-item>
-          </router-link>
+          </el-button>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">{{ $t("退出") }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+
+    <el-dialog
+      title="添加用户"
+      :visible.sync="dialogVisible"
+      width="30%">
+
+      <el-form label-position="right" ref="form" v-loading="loading" :model="form" label-width="80px">
+
+        <el-form-item :label="$t('旧密码')">
+          <el-input v-model="form.OldPassword" :placeholder="$t('请输入旧密码')" show-password />
+        </el-form-item>
+        <el-form-item :label="$t('新密码')">
+          <el-input v-model="form.NewPassword" :placeholder="$t('输入新密码')" show-password />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false;loading = false">取 消</el-button>
+        <el-button type="primary" @click="onSubmit">{{ $t('修改密码') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -36,8 +60,25 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import Lang from '@/components/Lang'
+import { alterPassword } from '@/api/user'
+import { getVersion } from '@/api/version'
 
 export default {
+  data() {
+    return {
+      dialogVisible: false,
+      loading: false,
+      version: {
+        current: '1.0.0',
+        latest: '1.0.0',
+        upgrade: true
+      },
+      form: {
+        OldPassword: '',
+        NewPassword: ''
+      }
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger,
@@ -49,6 +90,9 @@ export default {
       'avatar'
     ])
   },
+  created() {
+    this.fetchData()
+  },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
@@ -56,6 +100,25 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    onSubmit() {
+      this.loading = true
+      console.log('this.form:', this.form)
+      alterPassword(this.form).then(r => {
+        this.$message(this.$t('修改成功'))
+        this.loading = false
+        this.dialogVisible = false
+      }).catch(e => {
+        this.loading = false
+      })
+    },
+    fetchData() {
+      getVersion().then(resp => {
+        console.log(resp.data)
+        this.version = resp.data
+        this.version.upgrade = true
+        // this.version.upgrade = this.version.current < this.version.latest
+      })
     }
   }
 }

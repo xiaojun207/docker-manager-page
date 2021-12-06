@@ -58,21 +58,15 @@ export const constantRoutes = [
   {
     path: '/user',
     component: Layout,
-    redirect: '/user/alterpassword',
+    redirect: '/user/index',
     name: 'User',
-    meta: { title: '用户管理', icon: 'el-icon-grape' },
+    meta: { title: '用户管理', icon: 'el-icon-user' },
     children: [
       {
         path: 'index',
         name: 'UserIndex',
         component: () => import('@/views/user/index'),
-        meta: { title: '用户列表', icon: 'el-icon-notebook-2' }
-      },
-      {
-        path: 'alterpassword',
-        name: 'AlterPassword',
-        component: () => import('@/views/user/alterpassword'),
-        meta: { title: '密码修改', icon: 'dashboard' }
+        meta: { title: '用户列表', icon: 'el-icon-user' }
       }
     ]
   },
@@ -81,7 +75,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/app/index',
     name: 'App',
-    meta: { title: '发布管理', icon: 'el-icon-grape' },
+    meta: { title: '应用管理', icon: 'el-icon-cherry' },
     children: [
       {
         path: 'index',
@@ -158,13 +152,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/config/agent',
     name: 'Server',
-    meta: { title: '配置管理', icon: 'el-icon-s-help' },
+    meta: { title: '配置管理', icon: 'el-icon-setting' },
     children: [
       {
         path: 'agent',
         name: 'Agent',
         component: () => import('@/views/config/index'),
-        meta: { title: '客户端配置', icon: 'table' }
+        meta: { title: '客户端配置', icon: 'el-icon-setting' }
       }
     ]
   },

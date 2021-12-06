@@ -53,6 +53,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import rsa from '@/utils/rsa'
 import Lang from '@/components/Lang'
 
 export default {
@@ -86,7 +87,7 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined,
+      redirect: undefined
     }
   },
   watch: {
@@ -96,6 +97,9 @@ export default {
       },
       immediate: true
     }
+  },
+  created(){
+    rsa.initEncrypt()
   },
   methods: {
     showPwd() {
@@ -112,7 +116,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
+          const data = this.loginForm
+          data.password = rsa.toEncrypt(data.password)
+          this.$store.dispatch('user/login', data).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {

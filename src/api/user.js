@@ -32,6 +32,22 @@ export function changeStatus(data) {
   })
 }
 
+export function addUser(data) {
+  return request({
+    url: '/user/addUser',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteUser(data) {
+  return request({
+    url: '/user/deleteUser',
+    method: 'post',
+    data
+  })
+}
+
 export function alterPassword(data) {
   return request({
     url: '/user/alterPassword',

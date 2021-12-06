@@ -20,9 +20,9 @@ service.interceptors.request.use(
 
     if (store.getters.token) {
       // let each request carry token
-      // ['X-Token'] is a custom headers key
+      // ['authorization'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      config.headers['authorization'] = getToken()
     }
     return config
   },
@@ -49,13 +49,7 @@ service.interceptors.response.use(
     const res = response.data
     // if the custom code is not 100200, it is judged as an error.
     if (res.code !== '100200') {
-      Message({
-        message: res.msg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
+      // 105101: Illegal token; 105101: Other clients logged in; 50014: Token expired;
       if (res.code === '105101') {
         // to re-login
         MessageBox.confirm('你已经离线，请重新登录', '登录检查', {
@@ -66,6 +60,12 @@ service.interceptors.response.use(
           store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
+        })
+      } else {
+        Message({
+          message: res.msg || 'Error',
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject(new Error(res.msg || 'Error'))
