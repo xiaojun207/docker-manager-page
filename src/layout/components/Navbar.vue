@@ -6,7 +6,9 @@
 
     <div class="right-menu">
       <a href="https://hub.docker.com/r/xiaojun207/docker-manager/tags" target="_blank">
-        <div v-if="version.upgrade" style="float: left;margin-right: 10px;color: #d70404">{{ $t('当前版本') }} : {{ version.current}}</div>
+          <div style="float: left;margin-right: 40px;color: #3f3e3e;">
+            <el-badge :value="version.upgrade?'new':''" class="item" style="line-height: 30px">{{ $t('当前版本') }} : {{ version.current}}</el-badge>
+          </div>
       </a>
       <lang />
       <el-dropdown class="avatar-container" trigger="click">
@@ -116,8 +118,7 @@ export default {
       getVersion().then(resp => {
         console.log(resp.data)
         this.version = resp.data
-        this.version.upgrade = true
-        // this.version.upgrade = this.version.current < this.version.latest
+        this.version.upgrade = this.version.current < this.version.latest
       })
     }
   }

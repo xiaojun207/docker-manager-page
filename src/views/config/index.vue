@@ -20,15 +20,56 @@
           <el-button type="text" >{{ scope.row.Name }}</el-button>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('值')" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.Value }}
+
+      <el-table-column min-width="270px" :label="$t('值')">
+        <template slot-scope="{row}">
+          <template v-if="row.edit">
+            <el-input v-model="row.Value" class="edit-input" size="small" />
+          </template>
+          <span v-else>{{ row.Value }}</span>
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('备注')"  width="270">
-        <template slot-scope="scope">
-          {{ scope.row.Memo }}
+        <template slot-scope="{row}">
+          <template v-if="row.edit">
+            <el-input v-model="row.Memo" class="edit-input" size="small" />
+          </template>
+          <span v-else>{{ row.Memo }}</span>
+        </template>
+      </el-table-column>
+
+
+      <el-table-column align="center" :label="$t('操作')" width="270">
+        <template slot-scope="{row}">
+          <el-button
+            v-if="!row.edit"
+            type="primary"
+            size="small"
+            icon="el-icon-edit"
+            @click="row.edit=!row.edit"
+          >
+            Edit
+          </el-button>
+          <el-button
+            v-if="row.edit"
+            type="success"
+            size="small"
+            icon="el-icon-circle-check-outline"
+            @click="confirmEdit(row)"
+          >
+            Ok
+          </el-button>
+
+          <el-button
+            v-if="row.edit"
+            size="small"
+            icon="el-icon-refresh"
+            type="warning"
+            @click="cancelEdit(row)"
+          >
+            cancel
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,10 +83,7 @@ import { getConfig, updateConfig } from '@/api/config'
 export default {
   data() {
     return {
-      list:[],
-      form: {
-        TaskFrequency: 600
-      }
+      list: []
     }
   },
   created() {
@@ -53,18 +91,34 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.listLoading = true
-      console.log('this.form:', this.form)
-      updateConfig(this.form).then(resp => {
-        this.$message(this.$t('发布成功'))
-        this.listLoading = false
-      })
+
     },
     fetchData() {
       this.listLoading = true
       getConfig().then(resp => {
-        this.list = resp.data
+        this.list = resp.data.map(v => {
+          this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
+          v.originalValue = v.Value //  will be used when user click the cancel botton
+          v.originalMemo = v.Memo
+          return v
+        })
         this.listLoading = false
+      })
+    },
+    cancelEdit(row) {
+      row.Value = row.originalValue
+      row.Memo = row.originalMemo
+      row.edit = false
+    },
+    confirmEdit(row) {
+      row.edit = false
+      row.originalValue = row.Value
+      row.originalMemo = row.Memo
+      this.listLoading = true
+      updateConfig(row).then(resp => {
+        this.$message(this.$t('发布成功'))
+        this.listLoading = false
+        this.fetchData()
       })
     }
   }
@@ -76,4 +130,3 @@ export default {
   text-align: center;
 }
 </style>
-

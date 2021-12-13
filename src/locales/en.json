@@ -120,6 +120,9 @@
   "请输入正确的手机号码": "Please input correct mobile number",
   "请输入密码": "Please input password",
   "请输入正确密码": "Please input correct password",
-  "当前版本": "Current version"
+  "当前版本": "Current version",
+  "功能开发中...": "Function development",
+  "镜像管理": "Image Manage",
+  "镜像名称": "Image Name"
 
 }

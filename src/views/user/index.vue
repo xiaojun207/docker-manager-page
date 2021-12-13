@@ -65,7 +65,6 @@
       </el-table-column>
     </el-table>
 
-
     <el-dialog
       :title="$t('添加用户')"
       :visible.sync="dialogVisible"

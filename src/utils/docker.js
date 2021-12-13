@@ -80,22 +80,33 @@ export function formatMemory2(m) {
   return (m.usage * 100.0 / m.limit).toFixed(2) + '%'
 }
 
-export function formatCpu(c) {
-  if (!c || !c.cpu_usage) {
-    return ''
-  }
-  let cpuPercent = 0.0
-  const previousCPU = 0
-  const previousSystem = 0
-  // calculate the change for the cpu usage of the container in between readings
-  const cpuDelta = c.cpu_usage.total_usage - previousCPU
-  // calculate the change for the entire system between readings
-  const systemDelta = c.system_cpu_usage - previousSystem
+/**
+ To calculate the values shown by the `stats` command of the docker cli tool
+ the following formulas can be used:
+ * used_memory = `memory_stats.usage - memory_stats.stats.cache`
+ * available_memory = `memory_stats.limit`
+ * Memory usage % = `(used_memory / available_memory) * 100.0`
+ * cpu_delta = `cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage`
+ * system_cpu_delta = `cpu_stats.system_cpu_usage - precpu_stats.system_cpu_usage`
+ * number_cpus = `lenght(cpu_stats.cpu_usage.percpu_usage)` or `cpu_stats.online_cpus`
+ * CPU usage % = `(cpu_delta / system_cpu_delta) * number_cpus * 100.0`
+ * @param c
+ * @returns {string}
+ */
+export function formatCpu(cpu_stats, precpu_stats) {
+  // https://my.oschina.net/jxcdwangtao/blog/828648
+  // cpu_delta = cpu_total_usage - pre_cpu_total_usage;
+  // system_delta = system_usage - pre_system_usage;
+  // CPU % = ((cpu_delta / system_delta) * length(per_cpu_usage_array) ) * 100.0
 
-  if (systemDelta > 0.0 && cpuDelta > 0.0) {
-    cpuPercent = (cpuDelta / systemDelta) * c.cpu_usage.percpu_usage.length * 100.0
+  if (!cpu_stats || !cpu_stats.cpu_usage || !precpu_stats || !precpu_stats.cpu_usage || !cpu_stats.system_cpu_usage || !precpu_stats.system_cpu_usage) {
+    return '0%'
   }
-  return cpuPercent.toFixed(2) + '%'
+  const cpu_delta = cpu_stats.cpu_usage.total_usage - precpu_stats.cpu_usage.total_usage
+  const system_cpu_delta = cpu_stats.system_cpu_usage - precpu_stats.system_cpu_usage
+  const number_cpus = cpu_stats.online_cpus
+  const cpu_usage_percent = (cpu_delta / system_cpu_delta) * number_cpus * 100.0
+  return cpu_usage_percent.toFixed(2) + '%'
 }
 
 export function formatNet(n) {

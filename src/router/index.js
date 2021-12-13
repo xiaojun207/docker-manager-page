@@ -148,6 +148,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/image',
+    component: Layout,
+    redirect: '/image/list',
+    name: 'Server',
+    meta: { title: '镜像管理', icon: 'el-icon-document-copy' },
+    children: [
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/image/index'),
+        meta: { title: '镜像管理', icon: 'el-icon-document-copy' }
+      }
+    ]
+  },
+  {
     path: '/config',
     component: Layout,
     redirect: '/config/agent',

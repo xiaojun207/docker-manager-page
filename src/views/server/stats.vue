@@ -41,22 +41,22 @@
       </el-table-column>
       <el-table-column label="CpuStats" width="150" align="center">
         <template slot-scope="scope">
-          {{ formatCpu(scope.row.CpuStats) }}
+          {{ formatCpu(scope.row.cpu_stats, scope.row.precpu_stats) }}
         </template>
       </el-table-column>
       <el-table-column label="MemoryStats" min-width="180" align="center">
         <template slot-scope="scope">
-          {{ formatMemory(scope.row.MemoryStats) }}
+          {{ formatMemory(scope.row.memory_stats) }}
         </template>
       </el-table-column>
       <el-table-column label="MEM %" min-width="150" align="center">
         <template slot-scope="scope">
-          {{ formatMemory2(scope.row.MemoryStats) }}
+          {{ formatMemory2(scope.row.memory_stats) }}
         </template>
       </el-table-column>
       <el-table-column label="Networks" width="210" align="center">
         <template slot-scope="scope">
-          {{ formatNet(scope.row.Networks) }}
+          {{ formatNet(scope.row.networks) }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('实时日志')" width="100" align="center">
@@ -187,8 +187,8 @@ export default {
     formatMemory2(m) {
       return formatMemory2(m)
     },
-    formatCpu(c) {
-      return formatCpu(c)
+    formatCpu(cpu_stats, precpu_stats) {
+      return formatCpu(cpu_stats, precpu_stats)
     },
     formatNet(n) {
       return formatNet(n)
