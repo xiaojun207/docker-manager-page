@@ -116,8 +116,11 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          const data = this.loginForm
-          data.password = rsa.toEncrypt(data.password)
+
+          const data = {
+            username: this.loginForm.username,
+            password: rsa.toEncrypt(this.loginForm.password)
+          }
           this.$store.dispatch('user/login', data).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false

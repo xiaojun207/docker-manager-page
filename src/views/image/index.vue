@@ -1,11 +1,9 @@
 <template>
   <div class="app-container">
+
     <div class="filter-container">
-      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px">
+      <el-select v-model="listQuery.serverName" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px;margin-right: 10px;">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-select v-model="listQuery.ImageNames" multiple filterable :placeholder="$t('镜像名称')" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
-        <el-option v-for="item in res.ImageNames" :key="item" :label="item" :value="item" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="fetchData">
         Search
@@ -14,13 +12,16 @@
     </div>
 
     <el-table
+      ref="tableList"
       v-loading="listLoading"
-      :data="list"
+      :data="list.filter( r => !search || r.RepoTags.toLowerCase().includes(search.toLowerCase()))"
       :span-method="spanMethod"
       element-loading-text="Loading"
+      stripe
       border
       fit
       highlight-current-row
+      class="filter-tree"
       style="margin-top: 20px;"
     >
       <el-table-column align="center" label="ID" width="65">
@@ -41,6 +42,11 @@
         </template>
       </el-table-column>
       <el-table-column label="Tags" align="center">
+
+        <template slot="header" slot-scope="scope">
+          Tags
+          <el-input v-model="search" size="mini" :placeholder="$t('输入关键字搜索')" style="width: 140px"/>
+        </template>
         <template slot-scope="scope">
           <div v-for="item in formatTags(scope.row.RepoTags)" :key="item">{{item}}</div>
         </template>
@@ -62,6 +68,7 @@
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" :label="$t('操作')" width="170" align="center">
+
         <template slot-scope="scope">
           <el-button :loading="listLoading" type="text" @click="ImageOperator('remove', scope.row )">{{ $t('删除') }}</el-button>
         </template>
@@ -76,7 +83,7 @@
 </template>
 
 <script>
-import { getServerNames, getContainerInfos } from '@/api/container'
+import { getServerNames } from '@/api/container'
 import { getImageList, ImageOperator } from '@/api/image'
 import { formatDate } from '@/utils/index'
 import { formatSize, FormatName } from '@/utils/docker'
@@ -101,47 +108,32 @@ export default {
       dialogDetailVisible: false,
       selectRow: {},
       res: {
-        serverNames: [],
-        ImageNames: [],
-        containerInfos: []
+        serverNames: []
       },
       listQuery: {
-        serverNames: [],
-        ImageNames: []
-      }
+        serverName: []
+      },
+      filterText: '',
+      search: ''
     }
   },
   computed: {
   },
   created() {
     this.fetchData()
-    this.fetchContainerInfoData()
     this.fetchServerNames()
   },
   methods: {
     ImageOperator(operator, row) {
-      this.$message({
-        message: this.$t('功能开发中...'),
-        type: 'success'
-      })
-      // eslint-disable-next-line no-constant-condition
-      if (1 === 1) {
-        return
-      }
       this.listLoading = true
-      const data = { 'image_id': row.image_id, 'serverNames': [row.ServerName] }
+      const data = { 'image_id': row.image_id, 'serverName': row.ServerName }
       ImageOperator(operator, data).then(resp => {
         if (resp.code === '100200') {
           this.$message({
             message: this.$t('命令下发成功'),
             type: 'success'
           })
-          // this.fetchData()
-        } else {
-          this.$message({
-            message: resp.msg,
-            type: 'warning'
-          })
+          this.fetchData()
         }
         this.listLoading = false
       })
@@ -153,23 +145,6 @@ export default {
         this.listLoading = false
       })
     },
-    fetchContainerInfoData() {
-      this.loading = true
-      getContainerInfos().then(resp => {
-        const d = resp.data
-        this.res.ContainerNames = []
-        for (const i in d) {
-          for (const j in d[i].containers) {
-            const name = d[i].containers[j].Name
-
-            if (this.res.ContainerNames.indexOf(name) === -1) {
-              this.res.ContainerNames.push(name)
-            }
-          }
-        }
-        this.loading = false
-      })
-    },
     fetchData() {
       this.listLoading = true
       getImageList(this.listQuery).then(r => {
@@ -177,6 +152,7 @@ export default {
         this.list.sort(function(a, b) {
           return a.ServerName.localeCompare(b.ServerName)
         })
+
         this.groupList = new Set(this.list.map(o => o.ServerName))
         this.groups = {}
         for (let i = 0; i < this.list.length; i++) {

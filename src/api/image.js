@@ -10,7 +10,7 @@ export function getImageList(params) {
 
 export function ImageOperator(operator, data) {
   return request({
-    url: '/mgr/container/' + operator,
+    url: '/mgr/image/' + operator,
     method: 'post',
     data
   })
