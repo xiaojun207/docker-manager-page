@@ -65,6 +65,11 @@
           <span  v-if="!scope.row.Follow" style="color: #d70404;">{{ $t('未开启')}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="UpdateDate" width="210" align="center">
+        <template slot-scope="scope">
+          {{ formatDate(scope.row.UpdateDate) }}
+        </template>
+      </el-table-column>
       <el-table-column class-name="status-col" :label="$t('操作')" width="220" align="center">
         <template slot-scope="scope">
           <el-button :loading="listLoading" :disabled="scope.row.Follow" type="text" @click="startLog(scope.row )">{{ $t('开启日志') }}</el-button>
@@ -82,6 +87,7 @@
 </template>
 
 <script>
+import { formatDate } from '@/utils/index'
 import { getStatsList } from '@/api/stats'
 import { getContainerInfos, getServerNames } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
@@ -180,6 +186,9 @@ export default {
     openDetail(row) {
       this.selectRow = row
       this.dialogDetailVisible = true
+    },
+    formatDate(d) {
+      return formatDate(d)
     },
     formatMemory(m) {
       return formatMemory(m)

@@ -13,7 +13,7 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('命令')">
+      <el-table-column :label="$t('命令')" width="170">
         <template slot-scope="scope">
           {{ scope.row.Ch }}
         </template>
@@ -23,7 +23,7 @@
           <span>{{ scope.row.ServerName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="TaskId" align="center">
+      <el-table-column label="TaskId" width="300" align="center">
         <template slot-scope="scope">
           {{ scope.row.TaskId }}
         </template>
@@ -31,11 +31,11 @@
 <!--      <el-table-column label="参数" align="center">-->
 <!--        <template slot-scope="scope">-->
 <!--          <el-button type="text" >查看参数</el-button>-->
-<!--&lt;!&ndash;          {{ scope.row.Param }}&ndash;&gt;-->
+<!--          {{ scope.row.Param }}-->
 <!--        </template>-->
 <!--      </el-table-column>-->
 
-      <el-table-column :label="$t('信息')" width="110" align="center">
+      <el-table-column :label="$t('信息')" align="center">
         <template slot-scope="scope">
           {{ scope.row.Msg }}
         </template>
@@ -43,7 +43,7 @@
       <el-table-column align="center" prop="created_at" :label="$t('发布时间')" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ formatTime(scope.row.Ts) }}</span>
+          <span> {{ formatDate(scope.row.Ts) }}</span>
         </template>
       </el-table-column>
 
@@ -60,7 +60,7 @@
 
 <script>
 import { getTasks } from '@/api/task'
-import { formatTime } from '@/utils/index.js'
+import { formatDate } from '@/utils/index.js'
 /**
  * ch: "docker.container.restart"
  code: "000000"
@@ -98,8 +98,8 @@ export default {
         this.listLoading = false
       })
     },
-    formatTime(d) {
-      return formatTime(d)
+    formatDate(d) {
+      return formatDate(d)
     }
   }
 }
