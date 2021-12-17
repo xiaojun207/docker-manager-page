@@ -23,6 +23,11 @@
           <span>{{ scope.row.Running + "/" + scope.row.Containers }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="Images" width="170" align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.Images }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="Cpu" width="110" align="center">
         <template slot-scope="scope">
           {{ scope.row.Cpu }}
@@ -68,7 +73,7 @@
 </template>
 
 <script>
-import { getServerList } from '@/api/container'
+import { getServerList, getServer } from '@/api/server'
 
 export default {
   filters: {
@@ -103,6 +108,9 @@ export default {
     openDetail(row) {
       this.selectRow = row
       this.dialogDetailVisible = true
+      getServer({ 'ServerName': row.Name }).then(r => {
+        this.selectRow = r.data
+      })
     },
     handleDrag() {
       this.$refs.select.blur()

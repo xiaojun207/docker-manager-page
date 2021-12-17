@@ -1,24 +1,9 @@
 import request from '@/utils/request'
 
-export function getServerList(params) {
-  return request({
-    url: '/mgr/servers',
-    method: 'get',
-    params
-  })
-}
-
-export function getServerNames(params) {
-  return request({
-    url: '/mgr/serverNames',
-    method: 'get',
-    params
-  })
-}
 
 export function getContainers(params) {
   return request({
-    url: '/mgr/containers',
+    url: '/mgr/container/list',
     method: 'get',
     params: params
   })
