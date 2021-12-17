@@ -15,3 +15,12 @@ export function ImageOperator(operator, data) {
     data
   })
 }
+
+export function getImage(params) {
+  console.log('getImage.params:', params)
+  return request({
+    url: '/mgr/image/detail',
+    method: 'get',
+    params
+  })
+}

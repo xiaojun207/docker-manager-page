@@ -24,6 +24,14 @@ export function getContainers(params) {
   })
 }
 
+export function getContainer(params) {
+  return request({
+    url: '/mgr/container/detail',
+    method: 'get',
+    params: params
+  })
+}
+
 export function getContainerInfos(params) {
   return request({
     url: '/mgr/containerInfos',

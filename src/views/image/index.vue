@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <div class="filter-container">
-      <el-select v-model="listQuery.serverName" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px;margin-right: 10px;">
+      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px;margin-right: 10px;">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="fetchData">
@@ -36,8 +36,8 @@
       </el-table-column>
       <el-table-column label="ImageId" align="center">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.image_id" placement="top-start">
-            <span>{{ formatImageId(scope.row.image_id) }}</span>
+          <el-tooltip class="item" effect="dark" :content="scope.row.ImageId" placement="top-start">
+            <el-button type="text" @click="openDetail(scope.row)">{{ formatImageId(scope.row.ImageId) }}</el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -74,7 +74,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
+    <el-dialog v-loading="detailLoading" :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
       </pre>
@@ -84,7 +84,7 @@
 
 <script>
 import { getServerNames } from '@/api/container'
-import { getImageList, ImageOperator } from '@/api/image'
+import { getImage, getImageList, ImageOperator } from '@/api/image'
 import { formatDate } from '@/utils/index'
 import { formatSize, FormatName } from '@/utils/docker'
 
@@ -104,14 +104,15 @@ export default {
       list: [],
       groupList: [],
       groups: {},
-      listLoading: true,
+      listLoading: false,
+      detailLoading: false,
       dialogDetailVisible: false,
       selectRow: {},
       res: {
         serverNames: []
       },
       listQuery: {
-        serverName: []
+        serverNames: []
       },
       filterText: '',
       search: ''
@@ -126,7 +127,7 @@ export default {
   methods: {
     ImageOperator(operator, row) {
       this.listLoading = true
-      const data = { 'image_id': row.image_id, 'serverName': row.ServerName }
+      const data = { 'ImageId': row.ImageId, 'serverName': row.ServerName }
       ImageOperator(operator, data).then(resp => {
         if (resp.code === '100200') {
           this.$message({
@@ -139,10 +140,8 @@ export default {
       })
     },
     fetchServerNames() {
-      this.listLoading = true
       getServerNames().then(resp => {
         this.res.serverNames = resp.data
-        this.listLoading = false
       })
     },
     fetchData() {
@@ -211,8 +210,17 @@ export default {
       return s.substr(7, 12)
     },
     openDetail(row) {
-      this.selectRow = row
       this.dialogDetailVisible = true
+      this.detailLoading = true
+      this.selectRow = row
+      const params = {
+        ImageId: row.ImageId
+      }
+      getImage(params).then(r => {
+        this.detailLoading = false
+        this.selectRow = r.data
+        console.log(r.data)
+      })
     }
   }
 

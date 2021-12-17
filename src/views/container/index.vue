@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px">
+      <el-select v-model="listQuery.ServerNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
       </el-select>
       <el-select v-model="listQuery.ContainerNames" multiple filterable :placeholder="$t('容器名称')" clearable collapse-tags class="filter-item" style="width: 300px;margin-left: 10px">
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { getContainers, ContainerOperator, getServerNames, getContainerInfos } from '@/api/container'
+import { getContainer, getContainers, ContainerOperator, getServerNames, getContainerInfos } from '@/api/container'
 import { formatDate } from '@/utils/index'
 import { PortsToStr, FormatName } from '@/utils/docker'
 
@@ -122,7 +122,7 @@ export default {
       list: [],
       groupList: [],
       groups: {},
-      listLoading: true,
+      listLoading: false,
       dialogDetailVisible: false,
       selectRow: {},
       res: {
@@ -131,7 +131,7 @@ export default {
         containerInfos: []
       },
       listQuery: {
-        serverNames: [],
+        ServerNames: [],
         ContainerNames: [],
         state: undefined
       }
@@ -147,7 +147,7 @@ export default {
   methods: {
     ContainerOperator(operator, row) {
       this.listLoading = true
-      const data = { 'containerId': row.ContainerId, 'serverNames': [row.ServerName] }
+      const data = { 'ContainerId': row.ContainerId, 'ServerNames': [row.ServerName] }
       ContainerOperator(operator, data).then(resp => {
         if (resp.code === '100200') {
           this.$message({
@@ -251,6 +251,10 @@ export default {
     openDetail(row) {
       this.selectRow = row
       this.dialogDetailVisible = true
+      const params = { ContainerId: row.ContainerId }
+      getContainer(params).then(r => {
+        this.selectRow = r.data
+      })
     }
   }
 

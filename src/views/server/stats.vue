@@ -40,23 +40,23 @@
         </template>
       </el-table-column>
       <el-table-column label="CpuStats" width="150" align="center">
-        <template slot-scope="scope">
-          {{ formatCpu(scope.row.cpu_stats, scope.row.precpu_stats) }}
+        <template slot-scope="{row}">
+          {{ row.CpuStats == 0 ? '': row.CpuStats.toFixed(2) + '%' }}
         </template>
       </el-table-column>
       <el-table-column label="MemoryStats" min-width="180" align="center">
         <template slot-scope="scope">
-          {{ formatMemory(scope.row.memory_stats) }}
+          {{ scope.row.MemoryStats }}
         </template>
       </el-table-column>
       <el-table-column label="MEM %" min-width="150" align="center">
-        <template slot-scope="scope">
-          {{ formatMemory2(scope.row.memory_stats) }}
+        <template slot-scope="{row}">
+          {{ row.MemoryStatsPercent == 0 ? '' : row.MemoryStatsPercent.toFixed(2) + '%' }}
         </template>
       </el-table-column>
       <el-table-column label="Networks" width="210" align="center">
         <template slot-scope="scope">
-          {{ formatNet(scope.row.networks) }}
+          {{ scope.row.Networks }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('实时日志')" width="100" align="center">
@@ -88,10 +88,10 @@
 
 <script>
 import { formatDate } from '@/utils/index'
-import { getStatsList } from '@/api/stats'
+import { getStats, getStatsList } from '@/api/stats'
 import { getContainerInfos, getServerNames } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
-import { formatMemory, formatMemory2, formatNet, formatCpu } from '@/utils/docker'
+import { formatMemory, formatNet, formatCpu } from '@/utils/docker'
 
 export default {
   filters: {
@@ -186,21 +186,12 @@ export default {
     openDetail(row) {
       this.selectRow = row
       this.dialogDetailVisible = true
+      getStats({ ContainerId: row.ContainerId }).then(r => {
+        this.selectRow = r.data
+      })
     },
     formatDate(d) {
       return formatDate(d)
-    },
-    formatMemory(m) {
-      return formatMemory(m)
-    },
-    formatMemory2(m) {
-      return formatMemory2(m)
-    },
-    formatCpu(cpu_stats, precpu_stats) {
-      return formatCpu(cpu_stats, precpu_stats)
-    },
-    formatNet(n) {
-      return formatNet(n)
     }
   }
 }
