@@ -45,7 +45,7 @@
 
         <template slot="header" slot-scope="scope">
           Tags
-          <el-input v-model="search" size="mini" :placeholder="$t('输入关键字搜索')" style="width: 140px"/>
+          <el-input v-model="search" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px"/>
         </template>
         <template slot-scope="scope">
           <div v-for="item in formatTags(scope.row.RepoTags)" :key="item">{{item}}</div>
