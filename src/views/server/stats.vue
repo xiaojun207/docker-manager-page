@@ -89,9 +89,9 @@
 <script>
 import { formatDate } from '@/utils/index'
 import { getStats, getStatsList } from '@/api/stats'
-import { getContainerInfos, getServerNames } from '@/api/container'
+import { getContainerInfos } from '@/api/container'
+import { getServerNames } from '@/api/server'
 import { getLogStart, getLogClose } from '@/api/logs'
-import { formatMemory, formatNet, formatCpu } from '@/utils/docker'
 
 export default {
   filters: {

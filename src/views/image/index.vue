@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { getServerNames } from '@/api/container'
+import { getServerNames } from '@/api/server'
 import { getImage, getImageList, ImageOperator } from '@/api/image'
 import { formatDate } from '@/utils/index'
 import { formatSize, FormatName } from '@/utils/docker'

@@ -97,7 +97,8 @@
 </template>
 
 <script>
-import { getServerNames, publishDocker } from '@/api/container'
+import { publishDocker } from '@/api/container'
+import { getServerNames } from '@/api/server'
 
 export default {
   data() {
