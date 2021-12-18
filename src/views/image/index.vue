@@ -74,6 +74,16 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page.currentPage"
+      :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
+      :page-size="page.pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="page.total">
+    </el-pagination>
     <el-dialog v-loading="detailLoading" :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
@@ -102,6 +112,11 @@ export default {
   data() {
     return {
       list: [],
+      page: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
       groupList: [],
       groups: {},
       listLoading: false,
@@ -144,10 +159,23 @@ export default {
         this.res.serverNames = resp.data
       })
     },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+      this.page.pageSize = val
+      this.fetchData()
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+      this.page.currentPage = val
+      this.fetchData()
+    },
     fetchData() {
       this.listLoading = true
+      this.listQuery.currentPage = this.page.currentPage
+      this.listQuery.pageSize = this.page.pageSize
       getImageList(this.listQuery).then(r => {
-        this.list = r.data
+        this.list = r.data.list
+        this.page = r.data.page
         this.list.sort(function(a, b) {
           return a.ServerName.localeCompare(b.ServerName)
         })
