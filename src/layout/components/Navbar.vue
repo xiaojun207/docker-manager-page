@@ -116,7 +116,6 @@ export default {
     },
     fetchData() {
       getVersion().then(resp => {
-        console.log(resp.data)
         this.version = resp.data
         this.version.upgrade = this.version.current < this.version.latest
       })

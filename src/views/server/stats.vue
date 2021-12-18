@@ -26,7 +26,7 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index + 1}}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
       <el-table-column label="Name" width="210">
@@ -61,8 +61,8 @@
       </el-table-column>
       <el-table-column :label="$t('实时日志')" width="100" align="center">
         <template slot-scope="scope">
-          <span  v-if="scope.row.Follow" style="color: #03c961;">{{ $t('已开启')}}</span>
-          <span  v-if="!scope.row.Follow" style="color: #d70404;">{{ $t('未开启')}}</span>
+          <span v-if="scope.row.Follow" style="color: #03c961;">{{ $t('已开启') }}</span>
+          <span v-if="!scope.row.Follow" style="color: #d70404;">{{ $t('未开启') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="UpdateDate" width="210" align="center">
@@ -106,7 +106,7 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [],
       listLoading: true,
       dialogDetailVisible: false,
       selectRow: {},

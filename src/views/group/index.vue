@@ -13,9 +13,9 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="ServiceName"  width="270">
+      <el-table-column label="ServiceName" width="270">
         <template slot-scope="scope">
-          <el-button type="text" >{{ scope.row.ServiceName }}</el-button>
+          <el-button type="text">{{ scope.row.ServiceName }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="ServerNames" align="center">
@@ -35,7 +35,7 @@ import { getAppGroup } from '@/api/app'
 export default {
   data() {
     return {
-      list: null,
+      list: [],
       listLoading: true
     }
   },

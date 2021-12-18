@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-table
       v-loading="listLoading"
-      :data="list"
+      :data="list.filter( r => !filterSearch.Name || r.Name.toLowerCase().includes(filterSearch.Name.toLowerCase()))"
       element-loading-text="Loading"
       border
       fit
@@ -10,12 +10,16 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index + 1}}
+          {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="Name" >
+      <el-table-column label="Name">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
+        </template>
+        <template slot="header" slot-scope="scope">
+          Name
+          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px" />
         </template>
       </el-table-column>
       <el-table-column label="ContainersRunning" width="170" align="center">
@@ -50,15 +54,19 @@
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="ServerVersion" width="200">
         <template slot-scope="scope">
-          <i class="el-icon-time" />
           <span>{{ scope.row.DockerVersion }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="LastDataTime" width="200">
+        <template slot-scope="scope">
+          <span>{{ formatTime(scope.row.LastDataTime) }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="State" width="100" align="center">
         <template slot-scope="scope">
-          <span  v-if="scope.row.State === 'connected'" style="color: #03c961;">{{ scope.row.State }}</span>
-          <span  v-if="scope.row.State !== 'connected'" style="color: #d70404;">{{ scope.row.State }}</span>
+          <span v-if="scope.row.State === 'connected'" style="color: #03c961;">{{ scope.row.State }}</span>
+          <span v-if="scope.row.State !== 'connected'" style="color: #d70404;">{{ scope.row.State }}</span>
         </template>
       </el-table-column>
 
@@ -66,7 +74,7 @@
 
     <el-dialog :visible.sync="dialogDetailVisible" title="详情" @dragDialog="handleDrag">
       <pre>
-{{ JSON.stringify(selectRow, null, 2)}}
+{{ JSON.stringify(selectRow, null, 2) }}
       </pre>
     </el-dialog>
   </div>
@@ -74,6 +82,7 @@
 
 <script>
 import { getServerList, getServer } from '@/api/server'
+import { formatTime } from '@/utils/index'
 
 export default {
   filters: {
@@ -88,8 +97,11 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [],
       listLoading: true,
+      filterSearch: {
+        Name: ''
+      },
       dialogDetailVisible: false,
       selectRow: {}
     }
@@ -114,6 +126,9 @@ export default {
     },
     handleDrag() {
       this.$refs.select.blur()
+    },
+    formatTime(s) {
+      return formatTime(s)
     }
   }
 }

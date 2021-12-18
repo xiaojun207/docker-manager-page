@@ -9,7 +9,10 @@
           <div class="card-panel-text">
             {{ $t("服务器") }}
           </div>
-          <count-to :start-val="0" :end-val="dashboradSize.server" :duration="1" class="card-panel-num" />
+          {{ $t("在线") }}
+          <count-to :start-val="0" :end-val="dashboradSize.serverConnected" :duration="1" class="card-panel-num" />
+          <el-divider direction="vertical"></el-divider>
+          {{ $t("总计") }} <count-to :start-val="0" :end-val="dashboradSize.server" :duration="1" class="card-panel-num" />
         </div>
       </div>
     </el-col>

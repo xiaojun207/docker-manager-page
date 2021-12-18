@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { refreshContainerList, refreshContainerStats } from '@/api/server'
+import { refreshContainerList, refreshContainerStats } from '@/api/dashboard'
 import PanelGroup from './components/PanelGroup'
 import TransactionTable from './components/TransactionTable'
 

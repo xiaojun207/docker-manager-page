@@ -22,7 +22,6 @@ export default {
     fetchData() {
       this.Loading = true
       getVersion().then(resp => {
-        console.log(resp.data)
         this.version = resp.data
         this.Loading = false
       })

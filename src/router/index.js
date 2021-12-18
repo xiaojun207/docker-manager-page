@@ -122,13 +122,13 @@ export const constantRoutes = [
   {
     path: '/container',
     component: Layout,
-    redirect: '/server/docker',
-    name: 'Server',
+    redirect: '/container/container',
+    name: 'Container',
     meta: { title: '容器管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'container',
-        name: 'Container',
+        name: 'ContainerList',
         component: () => import('@/views/container/index'),
         meta: { title: '容器', icon: 'tree' }
       },
@@ -151,7 +151,7 @@ export const constantRoutes = [
     path: '/image',
     component: Layout,
     redirect: '/image/list',
-    name: 'Server',
+    name: 'Image',
     meta: { title: '镜像管理', icon: 'el-icon-document-copy' },
     children: [
       {
@@ -166,7 +166,7 @@ export const constantRoutes = [
     path: '/config',
     component: Layout,
     redirect: '/config/agent',
-    name: 'Server',
+    name: 'Config',
     meta: { title: '配置管理', icon: 'el-icon-setting' },
     children: [
       {

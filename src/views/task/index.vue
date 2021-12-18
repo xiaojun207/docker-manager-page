@@ -28,13 +28,6 @@
           {{ scope.row.TaskId }}
         </template>
       </el-table-column>
-<!--      <el-table-column label="参数" align="center">-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-button type="text" >查看参数</el-button>-->
-<!--          {{ scope.row.Param }}-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
       <el-table-column :label="$t('信息')" align="center">
         <template slot-scope="scope">
           {{ scope.row.Msg }}
@@ -83,7 +76,7 @@ export default {
   },
   data() {
     return {
-      list: null,
+      list: [],
       listLoading: true
     }
   },

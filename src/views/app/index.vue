@@ -65,7 +65,7 @@ import { PortsToStr, FormatVolumes, formatSize } from '@/utils/docker'
 export default {
   data() {
     return {
-      list: null,
+      list: [],
       selectRow: {},
       dialogDetailVisible: false,
       listLoading: true

@@ -19,7 +19,7 @@
 
     <el-table
       v-loading="listLoading"
-      :data="list"
+      :data="list.filter(r => filterMatch(r))"
       :span-method="spanMethod"
       element-loading-text="Loading"
       border
@@ -40,6 +40,10 @@
       <el-table-column label="Name" >
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row )" :title="scope.row.Name">{{ scope.row.Name }}</el-button>
+        </template>
+        <template slot="header" slot-scope="scope">
+          Name
+          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px"/>
         </template>
       </el-table-column>
       <el-table-column label="IMAGE" align="center">
@@ -126,6 +130,9 @@ export default {
       listLoading: false,
       dialogDetailVisible: false,
       selectRow: {},
+      filterSearch: {
+        Name: ''
+      },
       res: {
         serverNames: [],
         ContainerNames: [],
@@ -256,6 +263,9 @@ export default {
       getContainer(params).then(r => {
         this.selectRow = r.data
       })
+    },
+    filterMatch(r) {
+      return !this.filterSearch.Name || r.Name.toLowerCase().includes(this.filterSearch.Name.toLowerCase())
     }
   }
 

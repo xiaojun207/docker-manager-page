@@ -28,5 +28,6 @@ function getLanguage() {
 export default new VueI18n({
   locale: getLanguage(),
   fallbackLocale: 'zh',
+  silentTranslationWarn: true,
   messages: loadLocaleMessages()
 })
