@@ -59,21 +59,9 @@
           {{ scope.row.Networks }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('实时日志')" width="100" align="center">
-        <template slot-scope="scope">
-          <span v-if="scope.row.Follow" style="color: #03c961;">{{ $t('已开启') }}</span>
-          <span v-if="!scope.row.Follow" style="color: #d70404;">{{ $t('未开启') }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="UpdateDate" width="210" align="center">
         <template slot-scope="scope">
           {{ formatDate(scope.row.UpdateDate) }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" :label="$t('操作')" width="220" align="center">
-        <template slot-scope="scope">
-          <el-button :loading="listLoading" :disabled="scope.row.Follow" type="text" @click="startLog(scope.row )">{{ $t('开启日志') }}</el-button>
-          <el-button :loading="listLoading" :disabled="!scope.row.Follow" type="text" @click="closeLog(scope.row )">{{ $t('关闭日志') }}</el-button>
         </template>
       </el-table-column>
     </el-table>

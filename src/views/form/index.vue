@@ -1,106 +1,151 @@
 <template>
   <div class="app-container">
-    <div style="margin-bottom: 15px;">
-      <el-input v-model="formTmp.tempText" type="textarea" :rows="5" :placeholder="$t('临时记录区域')" />
-    </div>
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+      <el-tab-pane label="表单模式" name="first">
+        <div style="margin-bottom: 15px;">
+          <el-input v-model="formTmp.tempText" type="textarea" :rows="5" :placeholder="$t('临时记录区域')" />
+          <div style="color: #90949b;font-size: 14px;padding: 10px">如下内容，可解析到表单：{{tempPlaceholder}}</div>
+          <el-button type="primary" @click="toForm" size="mini" style="margin-top: 10px">{{ $t("解析") }} </el-button>
+        </div>
+        <el-form ref="form" :model="form" label-width="120px">
 
-      <el-form-item :label="$t('容器名称')">
-        <el-input v-model="form.Name" :placeholder="$t('容器名称')" />
-      </el-form-item>
-      <el-form-item :label="$t('镜像')">
-        <el-input v-model="form.Image" placeholder="docker.io/library/nginx:latest" />
-      </el-form-item>
+          <el-form-item :label="$t('容器名称')">
+            <el-input v-model="form.Name" :placeholder="$t('容器名称')" />
+            <el-checkbox v-model="form.cover">{{ $t('如果容器名存在，则覆盖')}}</el-checkbox>
+          </el-form-item>
+          <el-form-item :label="$t('镜像')">
+            <el-input v-model="form.Image" placeholder="docker.io/library/nginx:latest" />
+          </el-form-item>
+<!--          <el-form-item :label="$t('命令')">-->
+<!--            <el-input v-model="form.Cmd" placeholder="" />-->
+<!--          </el-form-item>-->
+          <el-form-item :label="$t('内存(M)')">
+            <el-input-number v-model="formTmp.Memory" :controls="false" :placeholder="$t('内存，如：128')" style="width: 210px" />
+            <el-input disabled placeholder="M" style="width: 50px" />
+          </el-form-item>
+          <el-form-item :label="$t('端口映射')">
+            <el-button type="success" size="small" icon="el-icon-plus" @click="addPort()">{{ $t('添加') }}</el-button>
+            <div v-for="(item, index) in form.Ports" :key="item.key" :items="form.Ports" style="margin-top: 10px">
+              <el-input v-model="item.PublicPort" placeholder="8080" style="width: 200px">
+                <template slot="prepend">{{ item.IP }}:</template>
+              </el-input>
+              <span style="color: #2b2b2b"> -> </span>
+              <el-input v-model="item.PrivatePort" placeholder="8080" style="width: 200px">
+                <el-select slot="append" v-model="item.Type" placeholder="TCP" style="width: 80px">
+                  <el-option label="TCP" value="tcp" />
+                  <el-option label="UDP" value="udp" />
+                  <el-option label="SCTP" value="sctp" />
+                </el-select>
+              </el-input>
+              <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delPort(item, index)" />
+            </div>
+          </el-form-item>
+          <el-form-item :label="$t('卷映射')">
+            <el-button type="success" size="small" icon="el-icon-plus" @click="addVolume()">{{ $t('添加') }}</el-button>
+            <el-link type="info" :underline="false" href="https://docs.docker.com/storage/bind-mounts/#start-a-container-with-a-bind-mount" style="margin-left: 10px;">{{ $t('Bind模式相当于docker -v参数。如何挂载卷？') }}</el-link>
+            <div v-for="(item, index) in formTmp.Volumes" :key="item.hostPath" :items="formTmp.Volumes" style="margin-top: 10px">
+              <el-input v-model="item.Source" :placeholder="$t('源地址(宿主机地址)')" style="width: 400px">
+                <el-select slot="prepend" v-model="item.Type" disabled :placeholder="$t('绑定方式')" style="width: 100px">
+                  <el-option label="Bind" value="bind" />
+                  <el-option label="Volume" value="volume" />
+                  <el-option label="Tmpfs" value="tmpfs" />
+                </el-select>
+              </el-input>
+              <span style="color: #2b2b2b"> : </span>
+              <el-input v-model="item.Destination" :placeholder="$t('容器内地址')" style="width: 400px">
+                <el-select slot="append" v-model="item.RW" clearable placeholder="" style="width: 80px;">
+                  <el-option :label="$t('读写')" value=":rw" />
+                  <el-option :label="$t('只读')" value=":ro" />
+                </el-select>
+              </el-input>
+              <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delVolume(item, index)" />
+            </div>
+          </el-form-item>
+          <el-form-item :label="$t('环境变量')">
+            <el-button type="success" size="small" icon="el-icon-plus" @click="addEnv()">{{ $t('添加') }}</el-button>
+            <div v-for="(item, index) in formTmp.Env" :key="index" :value="item" :items="formTmp.Env" style="margin-top: 10px">
+              <el-input v-model="item.key" :placeholder="$t('变量key')" style="width: 400px" />
+              <span style="color: #2b2b2b"> = </span>
+              <el-input v-model="item.value" :placeholder="$t('变量值')" style="width: 400px" />
+              <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delEnv(item, index)" />
+            </div>
+          </el-form-item>
+          <el-form-item :label="$t('日志驱动')">
+            <el-select v-model="form.LogType" clearable :placeholder="$t('请选择')">
+              <el-option v-for="item in res.logTypes" :key="item.key" :label="item.name" :value="item.name" :title="item.summary" />
+            </el-select>
+            <el-link type="info" :underline="false" href="https://docs.docker.com/config/containers/logging/configure/" style="margin-left: 10px;">{{ $t('如何选择日志驱动？') }}</el-link>
+          </el-form-item>
+          <el-form-item :label="$t('日志配置参数')">
+            <el-button type="success" size="small" icon="el-icon-plus" @click="addLogConfig()">{{ $t('添加') }}</el-button>
+            <div v-for="(item, index) in formTmp.LogConfig" :key="item.key" :value="item" :items="formTmp.LogConfig" style="margin-top: 10px">
+              <el-input v-model="item.key" :placeholder="$t('变量key')" style="width: 400px" />
+              <span style="color: #2b2b2b"> = </span>
+              <el-input v-model="item.value" :placeholder="$t('变量值')" style="width: 400px" />
+              <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delLogConfig(item, index)" />
+            </div>
+          </el-form-item>
 
-      <el-form-item :label="$t('内存(M)')">
-        <el-input-number v-model="formTmp.Memory" :controls="false" :placeholder="$t('内存，如：128')" style="width: 210px" />
-        <el-input disabled placeholder="M" style="width: 50px" />
-      </el-form-item>
-      <el-form-item :label="$t('端口映射')">
-        <el-button type="success" size="small" icon="el-icon-plus" @click="addPort()">{{ $t('添加') }}</el-button>
-        <div v-for="(item, index) in form.Ports" :key="item.key" :items="form.Ports" style="margin-top: 10px">
-          <el-input v-model="item.PublicPort" placeholder="8080" style="width: 200px">
-            <template slot="prepend">{{ item.IP }}:</template>
-          </el-input>
-          <span style="color: #2b2b2b"> -> </span>
-          <el-input v-model="item.PrivatePort" placeholder="8080" style="width: 200px">
-            <el-select slot="append" v-model="item.Type" placeholder="TCP" style="width: 80px">
-              <el-option label="TCP" value="tcp" />
-              <el-option label="UDP" value="udp" />
-              <el-option label="SCTP" value="sctp" />
+          <!--      <el-form-item label="副本数量">-->
+          <!--        <el-input-number v-model="formTmp.Replicas" :controls="false" :min="1" :max="10" :step="1" :step-strictly="true" placeholder="副本数量，如：1" style="width: 210px" />-->
+          <!--        <a style="width: 350px;margin-left: 10px;color:#807b7b">副本数量，如：1</a>-->
+          <!--      </el-form-item>-->
+          <el-form-item :label="$t('目标服务器')">
+            <el-select v-model="form.ServerNames" multiple filterable placeholder="ServerName" clearable class="filter-item" style="width: 100%">
+              <el-option v-for="item in res.ServerNames" :key="item" :label="item" :value="item" />
             </el-select>
-          </el-input>
-          <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delPort(item, index)" />
-        </div>
-      </el-form-item>
-      <el-form-item :label="$t('卷映射')">
-        <el-button type="success" size="small" icon="el-icon-plus" @click="addVolume()">{{ $t('添加') }}</el-button>
-        <el-link type="info" :underline="false" href="https://docs.docker.com/storage/bind-mounts/#start-a-container-with-a-bind-mount" style="margin-left: 10px;">{{ $t('Bind模式相当于docker -v参数。如何挂载卷？') }}</el-link>
-        <div v-for="(item, index) in formTmp.Volumes" :key="item.hostPath" :items="formTmp.Volumes" style="margin-top: 10px">
-          <el-input v-model="item.Source" :placeholder="$t('源地址(宿主机地址)')" style="width: 400px">
-            <el-select slot="prepend" v-model="item.Type" disabled :placeholder="$t('绑定方式')" style="width: 100px">
-              <el-option label="Bind" value="bind" />
-              <el-option label="Volume" value="volume" />
-              <el-option label="Tmpfs" value="tmpfs" />
-            </el-select>
-          </el-input>
-          <span style="color: #2b2b2b"> : </span>
-          <el-input v-model="item.Destination" :placeholder="$t('容器内地址')" style="width: 400px">
-            <el-select slot="append" v-model="item.RW" clearable placeholder="" style="width: 80px;">
-              <el-option :label="$t('读写')" value=":rw" />
-              <el-option :label="$t('只读')" value=":ro" />
-            </el-select>
-          </el-input>
-          <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delVolume(item, index)" />
-        </div>
-      </el-form-item>
-      <el-form-item :label="$t('环境变量')">
-        <el-button type="success" size="small" icon="el-icon-plus" @click="addEnv()">{{ $t('添加') }}</el-button>
-        <div v-for="(item, index) in formTmp.Env" :key="index" :value="item" :items="formTmp.Env" style="margin-top: 10px">
-          <el-input v-model="item.key" :placeholder="$t('变量key')" style="width: 400px" />
-          <span style="color: #2b2b2b"> = </span>
-          <el-input v-model="item.value" :placeholder="$t('变量值')" style="width: 400px" />
-          <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delEnv(item, index)" />
-        </div>
-      </el-form-item>
-      <el-form-item :label="$t('日志驱动')">
-        <el-select v-model="form.LogType" clearable :placeholder="$t('请选择')">
-          <el-option v-for="item in res.logTypes" :key="item.key" :label="item.name" :value="item.name" :title="item.summary" />
-        </el-select>
-        <el-link type="info" :underline="false" href="https://docs.docker.com/config/containers/logging/configure/" style="margin-left: 10px;">{{ $t('如何选择日志驱动？') }}</el-link>
-      </el-form-item>
-      <el-form-item :label="$t('日志配置参数')">
-        <el-button type="success" size="small" icon="el-icon-plus" @click="addLogConfig()">{{ $t('添加') }}</el-button>
-        <div v-for="(item, index) in formTmp.LogConfig" :key="item.key" :value="item" :items="formTmp.LogConfig" style="margin-top: 10px">
-          <el-input v-model="item.key" :placeholder="$t('变量key')" style="width: 400px" />
-          <span style="color: #2b2b2b"> = </span>
-          <el-input v-model="item.value" :placeholder="$t('变量值')" style="width: 400px" />
-          <el-button type="danger" style="margin-left: 15px" size="small" icon="el-icon-delete" circle @click="delLogConfig(item, index)" />
-        </div>
-      </el-form-item>
+          </el-form-item>
 
-<!--      <el-form-item label="副本数量">-->
-<!--        <el-input-number v-model="formTmp.Replicas" :controls="false" :min="1" :max="10" :step="1" :step-strictly="true" placeholder="副本数量，如：1" style="width: 210px" />-->
-<!--        <a style="width: 350px;margin-left: 10px;color:#807b7b">副本数量，如：1</a>-->
-<!--      </el-form-item>-->
-      <el-form-item :label="$t('目标服务器')">
-        <el-select v-model="form.ServerNames" multiple filterable placeholder="ServerName" clearable class="filter-item" style="width: 100%">
-          <el-option v-for="item in res.ServerNames" :key="item" :label="item" :value="item" />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" style="width: 200px" @click="onSubmit">{{ $t('发布') }}</el-button>
-        <!--        <el-button @click="onCancel">Cancel</el-button>-->
-      </el-form-item>
-    </el-form>
+          <el-form-item>
+            <el-button type="primary" style="width: 200px" @click="onSubmit">{{ $t('发布') }}</el-button>
+            <!--        <el-button @click="onCancel">Cancel</el-button>-->
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="Yaml模式" name="second" disabled>
+        <yaml-editor v-model="yamlData" />
+      </el-tab-pane>
+      <el-tab-pane label="Json模式" name="third" disabled>
+        <json-editor ref="jsonEditor" v-model="jsonData" />
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 import { publishDocker } from '@/api/container'
 import { getServerNames } from '@/api/server'
+import YamlEditor from '@/components/YamlEditor/index.vue'
+import JsonEditor from '@/components/JsonEditor'
+
+const DefaultYamlData = 'version: "2"\n' +
+  '\n' +
+  'services:\n' +
+  '\n' +
+  '  redis-master:\n' +
+  '    image: k8s.gcr.io/redis:e2e \n' +
+  '    ports:\n' +
+  '      - "6379"\n' +
+  '\n' +
+  '  redis-slave:\n' +
+  '    image: gcr.io/google_samples/gb-redisslave:v1\n' +
+  '    ports:\n' +
+  '      - "6379"\n' +
+  '    environment:\n' +
+  '      - GET_HOSTS_FROM=dns\n' +
+  '\n' +
+  '  frontend:\n' +
+  '    image: gcr.io/google-samples/gb-frontend:v4\n' +
+  '    ports:\n' +
+  '      - "80:80"\n' +
+  '    environment:\n' +
+  '      - GET_HOSTS_FROM=dns\n' +
+  '    labels:\n' +
+  '      kompose.service.type: LoadBalancer\n'
+const DefaultJsonData = '[{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"CORN"}],"name":""},{"items":[{"market_type":"forexdata","symbol":"XAUUSD"},{"market_type":"forexdata","symbol":"XAGUSD"},{"market_type":"forexdata","symbol":"AUTD"},{"market_type":"forexdata","symbol":"AGTD"}],"name":"贵金属"},{"items":[{"market_type":"forexdata","symbol":"CORN"},{"market_type":"forexdata","symbol":"WHEAT"},{"market_type":"forexdata","symbol":"SOYBEAN"},{"market_type":"forexdata","symbol":"SUGAR"}],"name":"农产品"},{"items":[{"market_type":"forexdata","symbol":"UKOIL"},{"market_type":"forexdata","symbol":"USOIL"},{"market_type":"forexdata","symbol":"NGAS"}],"name":"能源化工"}]'
 
 export default {
+  components: { YamlEditor, JsonEditor },
   data() {
     return {
       res: {
@@ -118,6 +163,7 @@ export default {
           { name: 'logentries', summary: '将日志消息写入 Rapid7 Logentries。' }],
         logTypes2: ['json-file', 'fluentd', 'journald', 'syslog', 'gelf', 'awslogs', 'splunk', 'etwlogs', 'gcplogs', 'logentries']
       },
+      tempPlaceholder: 'docker run -d --name test-openresty -p 80:80 -p 443:443 -m 512m -e user=root -v /app/openresty/nginx/conf:/usr/local/openresty/nginx/conf -v /app/openresty/nginx/logs:/usr/local/openresty/nginx/logs openresty/openresty:latest',
       formTmp: {
         Ports: [],
         Env: [], // [{'key':'WebSite', 'value':'管理系统网站'}, {'key':'Domain','value':'www.abc.com'}]
@@ -129,6 +175,7 @@ export default {
       },
       form: {
         Image: '',
+        Cmd: '',
         Name: '',
         Ports: [], // [{ 'hostPort': '', 'appPort': '' }]
         Volumes: [], // [{ 'hostPath': '', 'appPath': '' }]
@@ -136,8 +183,12 @@ export default {
         ServerNames: [],
         Memory: 0,
         LogType: '',
-        LogConfig: []
-      }
+        LogConfig: [],
+        cover: true
+      },
+      activeName: 'first',
+      yamlData: DefaultYamlData,
+      jsonData: JSON.parse(DefaultJsonData)
     }
   },
   created() {
@@ -202,7 +253,7 @@ export default {
       this.$delete(this.form.Ports, index)
     },
     addVolume() {
-      this.formTmp.Volumes.push({ 'Source': '', 'Destination': '', 'RW': '', 'Mode': '', 'Type': 'bind', 'Propagation': 'rprivate' })
+      this.formTmp.Volumes.push({ 'Source': '', 'Destination': '', 'RW': ':rw', 'Mode': '', 'Type': 'bind', 'Propagation': 'rprivate' })
     },
     delVolume(item, index) {
       this.$delete(this.formTmp.Volumes, index)
@@ -218,6 +269,78 @@ export default {
     },
     delLogConfig(item, index) {
       this.$delete(this.formTmp.LogConfig, index)
+    },
+    clear() {
+      this.form.Image = ''
+      this.form.Ports = []
+      this.formTmp.Volumes = []
+      this.formTmp.Env = []
+    },
+    toForm() {
+      const tmp = this.formTmp.tempText
+      const keys = ['run', '-d', '--name', '-p', '-e', '-v', '-m']
+      const arr = tmp.split(' ')
+      let last = ''
+      let s = ''
+      let open = false
+      let isKey = true
+      let image = ''
+      let cmd = ''
+      this.clear()
+      for (const i in arr) {
+        if (!isKey && !keys.includes(arr[i])) {
+          if (image === '') {
+            image = arr[i]
+            this.form.Image = image
+          } else {
+            cmd += ' ' + arr[i]
+            this.form.Cmd = cmd
+          }
+          continue
+        }
+        isKey = keys.includes(arr[i])
+
+        s += arr[i]
+
+        if (arr[i] === '') {
+          if (open) {
+            s += ' '
+          } else {
+            continue
+          }
+        }
+
+        if (last === '--name') {
+          this.form.Name = s
+        } else if (last === '-m') {
+          const t = s.toLowerCase().replaceAll('m', '')
+          this.formTmp.Memory = parseInt(t)
+        } else if (last === '-p') {
+          const p = s.split(':')
+          this.form.Ports.push({ 'PublicPort': p[0], 'PrivatePort': p[1], 'IP': '0.0.0.0', 'Type': 'tcp' })
+        } else if (last === '-v') {
+          const p = s.split(':')
+          this.formTmp.Volumes.push({ 'Source': p[0], 'Destination': p[1], 'RW': ':rw', 'Mode': '', 'Type': 'bind', 'Propagation': 'rprivate' })
+        } else if (last === '-e') {
+          const p = s.split('=')
+          this.formTmp.Env.push({ 'key': p[0], 'value': p[1] })
+        } else {
+          // this.form.Image = s
+        }
+
+        if (s.startsWith('"') || s.endsWith('"')) {
+          open = !open
+        }
+
+        if (!open) {
+          last = s
+          s = ''
+        }
+      }
+      return
+    },
+    handleClick() {
+      return
     }
   }
 }
