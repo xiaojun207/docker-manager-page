@@ -98,7 +98,7 @@ export const constantRoutes = [
       {
         path: 'publish',
         name: 'Publish',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/publish/index'),
         meta: { title: '发布容器', icon: 'form' }
       }
     ]

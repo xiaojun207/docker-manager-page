@@ -62,10 +62,10 @@ export default {
 }
 .yaml-editor >>> .CodeMirror {
   height: auto;
-  min-height: 300px;
+  min-height: 600px;
 }
 .yaml-editor >>> .CodeMirror-scroll{
-  min-height: 300px;
+  min-height: 600px;
 }
 .yaml-editor >>> .cm-s-rubyblue span.cm-string {
   color: #F08047;

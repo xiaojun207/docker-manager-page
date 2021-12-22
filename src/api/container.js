@@ -33,6 +33,14 @@ export function publishDocker(data) {
   })
 }
 
+export function publishDockerYaml(data) {
+  return request({
+    url: '/mgr/publish/yaml',
+    method: 'post',
+    data
+  })
+}
+
 export function ContainerOperator(operator, data) {
   return request({
     url: '/mgr/container/' + operator,
