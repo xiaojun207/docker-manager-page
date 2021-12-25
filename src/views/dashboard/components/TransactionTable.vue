@@ -5,7 +5,7 @@
         {{ scope.row.Ch | orderNoFilter }}
       </template>
     </el-table-column>
-    <el-table-column :label="$t('目标服务器')" width="195" align="center">
+    <el-table-column :label="$t('目标主机')" width="195" align="center">
       <template slot-scope="scope">
         {{ scope.row.ServerName }}
       </template>

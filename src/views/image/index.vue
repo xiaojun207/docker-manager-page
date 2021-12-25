@@ -2,7 +2,7 @@
   <div class="app-container">
 
     <div class="filter-container">
-      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('服务器')" clearable collapse-tags class="filter-item" style="width: 300px;margin-right: 10px;">
+      <el-select v-model="listQuery.serverNames" multiple filterable :placeholder="$t('主机')" clearable collapse-tags class="filter-item" style="width: 300px;margin-right: 10px;">
         <el-option v-for="item in res.serverNames" :key="item" :label="item" :value="item" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="fetchData">

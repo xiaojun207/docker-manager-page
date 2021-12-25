@@ -8,12 +8,12 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="ID" width="95">
+      <el-table-column align="center" label="ID" width="65">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="AppName" width="270">
+      <el-table-column label="AppName" width="170">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
@@ -23,7 +23,7 @@
           {{ scope.row.Image }}
         </template>
       </el-table-column>
-      <el-table-column label="MaxMemory" width="170">
+      <el-table-column label="MaxMemory" width="110">
         <template slot-scope="scope">
           {{ formatSize(scope.row.Memory) }}
         </template>
@@ -33,17 +33,17 @@
           <div v-for="item in scope.row.Ports" :key="item.key">{{ PortToStr(item) }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="Volumes">
+      <el-table-column label="Volumes" style="min-width: 150px;">
         <template slot-scope="scope">
           <div v-for="item in scope.row.Volumes" :key="item.key">{{ item }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="Env" align="center">
+      <el-table-column label="Env" align="center" width="170">
         <template slot-scope="scope">
           <div v-for="item in scope.row.scope" :key="item.key">{{ item }}</div>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('操作')" align="center">
+      <el-table-column :label="$t('操作')" align="center" width="170">
         <template slot-scope="scope">
           <el-button :loading="listLoading" @click="delApp(scope.row)" size="small" type="text">{{ $t("删除") }}</el-button>
           <el-button :loading="listLoading" @click="updateApp(scope.row)" size="small" type="text">{{ $t("更新") }}</el-button>

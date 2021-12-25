@@ -92,7 +92,7 @@
       <!--        <el-input-number v-model="formTmp.Replicas" :controls="false" :min="1" :max="10" :step="1" :step-strictly="true" placeholder="副本数量，如：1" style="width: 210px" />-->
       <!--        <a style="width: 350px;margin-left: 10px;color:#807b7b">副本数量，如：1</a>-->
       <!--      </el-form-item>-->
-      <el-form-item :label="$t('目标服务器')">
+      <el-form-item :label="$t('目标主机')">
         <el-select v-model="form.ServerNames" multiple filterable placeholder="ServerName" clearable class="filter-item"  style="width: 100%">
           <el-option v-for="item in res.ServerNames" :key="item" :label="item" :value="item"/>
         </el-select>

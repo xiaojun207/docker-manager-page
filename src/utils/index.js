@@ -167,3 +167,20 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+export function VersionCompare(ver1, ver2) {
+  const arr1 = ver1.split('.')
+  const arr2 = ver2.split('.')
+  for (let i = 0; i < arr1.length; i++) {
+    const v1 = parseInt(arr1[i])
+    const v2 = parseInt(arr2[i])
+    if (v1 > v2) {
+      return 1
+    } else if (v1 < v2) {
+      return -1
+    } else {
+      //
+    }
+  }
+  return 0
+}

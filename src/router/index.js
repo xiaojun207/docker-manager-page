@@ -108,13 +108,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/server/docker',
     name: 'Server',
-    meta: { title: '服务器', icon: 'el-icon-s-help' },
+    meta: { title: '主机管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'docker',
         name: 'Docker',
         component: () => import('@/views/server/index'),
-        meta: { title: '服务器', icon: 'table' }
+        meta: { title: '主机管理', icon: 'table' }
       }
     ]
   },
@@ -135,7 +135,7 @@ export const constantRoutes = [
       {
         path: 'stats',
         name: 'Stats',
-        component: () => import('@/views/server/stats'),
+        component: () => import('@/views/container/stats'),
         meta: { title: '最新状态', icon: 'el-icon-date' }
       },
       {

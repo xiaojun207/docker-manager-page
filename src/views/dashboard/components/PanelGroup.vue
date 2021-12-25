@@ -7,7 +7,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            {{ $t("服务器") }}
+            {{ $t("主机") }}
           </div>
           {{ $t("在线") }}
           <count-to :start-val="0" :end-val="dashboradSize.serverConnected" :duration="1" class="card-panel-num" />

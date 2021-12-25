@@ -64,6 +64,7 @@ import Hamburger from '@/components/Hamburger'
 import Lang from '@/components/Lang'
 import { alterPassword } from '@/api/user'
 import { getVersion } from '@/api/version'
+import { VersionCompare } from '@/utils/index'
 
 export default {
   data() {
@@ -117,7 +118,7 @@ export default {
     fetchData() {
       getVersion().then(resp => {
         this.version = resp.data
-        this.version.upgrade = this.version.current < this.version.latest
+        this.version.upgrade = VersionCompare(this.version.current, this.version.latest) < 0
       })
     }
   }
