@@ -70,6 +70,11 @@
         </template>
       </el-table-column>
 
+      <el-table-column :label="$t('操作')">
+        <template slot-scope="scope">
+          <el-button type="text" @click="deleteServer(scope.row )">{{ $t('删除') }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-dialog :visible.sync="dialogDetailVisible" title="详情" @dragDialog="handleDrag">
@@ -81,7 +86,7 @@
 </template>
 
 <script>
-import { getServerList, getServer } from '@/api/server'
+import { getServerList, getServer, deleteServer } from '@/api/server'
 import { formatTime } from '@/utils/index'
 
 export default {
@@ -112,9 +117,17 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getServerList().then(response => {
-        this.list = response.data
+      getServerList().then(r => {
         this.listLoading = false
+        this.list = r.data
+      })
+    },
+    deleteServer(row) {
+      row.loading = true
+      deleteServer({ ServerName: row.Name }).then(r => {
+        row.loading = false
+        this.$message(this.$t('成功'))
+        this.fetchData()
       })
     },
     openDetail(row) {

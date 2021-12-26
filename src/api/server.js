@@ -24,3 +24,11 @@ export function getServer(params) {
     params
   })
 }
+
+export function deleteServer(data) {
+  return request({
+    url: '/mgr/server/delete',
+    method: 'post',
+    data
+  })
+}
