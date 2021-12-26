@@ -17,17 +17,17 @@
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
-        <template slot="header" slot-scope="scope">
+        <template slot="header" slot-scope="scope" align="center">
           Name
-          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px" />
+          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('过滤关键字')" style="width: 140px" />
         </template>
       </el-table-column>
-      <el-table-column label="ContainersRunning" width="170" align="center">
+      <el-table-column :label="$t('运行容器')" width="80" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.Running + "/" + scope.row.Containers }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Images" width="170" align="center">
+      <el-table-column :label="$t('镜像')" width="170" align="center">
         <template slot-scope="{row}">
           <span>{{ row.Images }}</span>
         </template>
@@ -52,12 +52,12 @@
           {{ scope.row.PublicIp }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="ServerVersion" width="200">
+      <el-table-column align="center" label="DockerVersion" width="120">
         <template slot-scope="scope">
           <span>{{ scope.row.DockerVersion }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="LastDataTime" width="200">
+      <el-table-column align="center" label="LastDataTime" width="120">
         <template slot-scope="scope">
           <span>{{ formatTime(scope.row.LastDataTime) }}</span>
         </template>
@@ -70,7 +70,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('操作')">
+      <el-table-column :label="$t('操作')" width="100" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="deleteServer(scope.row )">{{ $t('删除') }}</el-button>
         </template>

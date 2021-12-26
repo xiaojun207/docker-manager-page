@@ -127,6 +127,8 @@
   "镜像名称": "Image Name",
   "输入关键字过滤": "Please input keyword to filter",
   "在线": "Online",
-  "总计": "Total"
+  "总计": "Total",
+  "运行容器": "ContainerRunning",
+  "过滤关键字": "filter key word"
 
 }
