@@ -39,37 +39,11 @@
         </template>
       </el-table-column>
 
-
       <el-table-column align="center" :label="$t('操作')" width="270">
         <template slot-scope="{row}">
-          <el-button
-            v-if="!row.edit"
-            type="primary"
-            size="small"
-            icon="el-icon-edit"
-            @click="row.edit=!row.edit"
-          >
-            Edit
-          </el-button>
-          <el-button
-            v-if="row.edit"
-            type="success"
-            size="small"
-            icon="el-icon-circle-check-outline"
-            @click="confirmEdit(row)"
-          >
-            Ok
-          </el-button>
-
-          <el-button
-            v-if="row.edit"
-            size="small"
-            icon="el-icon-refresh"
-            type="warning"
-            @click="cancelEdit(row)"
-          >
-            cancel
-          </el-button>
+          <el-button v-if="!row.edit" type="primary" size="small" icon="el-icon-edit" @click="row.edit=!row.edit">Edit</el-button>
+          <el-button v-if="row.edit" type="success" size="small" icon="el-icon-circle-check-outline" @click="confirmEdit(row)">OK</el-button>
+          <el-button v-if="row.edit" type="warning" size="small" icon="el-icon-refresh" @click="cancelEdit(row)">Cancel</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,6 +57,7 @@ import { getConfig, updateConfig } from '@/api/config'
 export default {
   data() {
     return {
+      listLoading: false,
       list: []
     }
   },
@@ -90,9 +65,6 @@ export default {
     this.fetchData()
   },
   methods: {
-    onSubmit() {
-
-    },
     fetchData() {
       this.listLoading = true
       getConfig().then(resp => {
@@ -124,9 +96,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.line {
-  text-align: center;
-}
-</style>

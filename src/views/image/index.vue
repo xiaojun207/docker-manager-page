@@ -34,15 +34,12 @@
           {{ scope.row.ServerName }}
         </template>
       </el-table-column>
-      <el-table-column label="ImageId" align="center">
+      <el-table-column label="RepoDigests" align="center">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" :content="scope.row.ImageId" placement="top-start">
-            <el-button type="text" @click="openDetail(scope.row)">{{ formatImageId(scope.row.ImageId) }}</el-button>
-          </el-tooltip>
+          {{ scope.row.RepoDigests.split('@')[0] }}
         </template>
       </el-table-column>
       <el-table-column label="Tags" align="center">
-
         <template slot="header" slot-scope="scope">
           Tags
           <el-input v-model="search" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px"/>
@@ -51,14 +48,16 @@
           <div v-for="item in formatTags(scope.row.RepoTags)" :key="item">{{item}}</div>
         </template>
       </el-table-column>
+      <el-table-column label="ImageId" align="center">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" :content="scope.row.ImageId" placement="top-start">
+            <el-button type="text" @click="openDetail(scope.row)">{{ formatImageId(scope.row.ImageId) }}</el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column label="Size" align="center">
         <template slot-scope="scope">
           {{ formatSize(scope.row.Size) }}
-        </template>
-      </el-table-column>
-      <el-table-column label="RepoDigests" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.RepoDigests }}
         </template>
       </el-table-column>
       <el-table-column align="center" prop="created_at" label="Created" width="200">

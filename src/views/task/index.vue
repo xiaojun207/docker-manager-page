@@ -54,26 +54,8 @@
 <script>
 import { getTasks } from '@/api/task'
 import { formatDate } from '@/utils/index.js'
-/**
- * ch: "docker.container.restart"
- code: "000000"
- param: {containerId: "4287b4e672139b8e6137469b7e9cf8ee14b8bde887fa4c15905fd321f988049d",…}
- serverName: "docker-desktop"
- taskId: "776726aa-7d96-c8e0-1a86-eda76ece8901"
- ts: 1622471544
- */
 
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
       list: [],

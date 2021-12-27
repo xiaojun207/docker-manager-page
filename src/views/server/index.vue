@@ -65,8 +65,7 @@
 
       <el-table-column label="State" width="100" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.State === 'connected'" style="color: #03c961;">{{ scope.row.State }}</span>
-          <span v-if="scope.row.State !== 'connected'" style="color: #d70404;">{{ scope.row.State }}</span>
+          <span :style="{color: scope.row.State === 'connected'?'#03c961':'#d70404'}">{{ scope.row.State }}</span>
         </template>
       </el-table-column>
 

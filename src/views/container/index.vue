@@ -58,8 +58,7 @@
       </el-table-column>
       <el-table-column label="State" width="80" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.State === 'running'" style="color: #03c961;">{{ scope.row.State }}</span>
-          <span v-if="scope.row.State !== 'running'" style="color: #d70404;">{{ scope.row.State }}</span>
+          <span :style="{color: scope.row.State === 'running'? '#03c961' : '#d70404'}">{{ scope.row.State }}</span>
         </template>
       </el-table-column>
       <el-table-column label="Ports" width="270" align="center">
