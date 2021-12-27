@@ -74,22 +74,11 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('request.err:', error) // for debug
-    if (error + '' === 'Error: Request failed with status code 403') {
-      console.log('request.err 403') // for debug
-      Message({
-        message: 'API禁用',
-        type: 'error',
-        duration: 5 * 1000
-      })
-
-    } else {
-      Message({
-        message: error.msg,
-        type: 'error',
-        duration: 5 * 1000
-      })
-    }
+    Message({
+      message: error + '',
+      type: 'error',
+      duration: 5 * 1000
+    })
     return Promise.reject(error)
   }
 )

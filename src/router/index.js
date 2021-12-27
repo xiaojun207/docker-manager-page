@@ -174,6 +174,12 @@ export const constantRoutes = [
         name: 'Agent',
         component: () => import('@/views/config/index'),
         meta: { title: '客户端配置', icon: 'el-icon-setting' }
+      },
+      {
+        path: 'white',
+        name: 'white',
+        component: () => import('@/views/config/whitelist'),
+        meta: { title: '白名单IP', icon: 'el-icon-setting' }
       }
     ]
   },

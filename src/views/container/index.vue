@@ -37,13 +37,13 @@
           {{ scope.row.ServerName }}
         </template>
       </el-table-column>
-      <el-table-column label="Name" >
+      <el-table-column label="Name">
         <template slot-scope="scope">
-          <el-button type="text" @click="openDetail(scope.row )" :title="scope.row.Name">{{ scope.row.Name }}</el-button>
+          <el-button type="text" :title="scope.row.Name" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
         <template slot="header" slot-scope="scope">
           Name
-          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px"/>
+          <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px" />
         </template>
       </el-table-column>
       <el-table-column label="IMAGE" align="center">

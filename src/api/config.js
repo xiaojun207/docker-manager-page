@@ -14,3 +14,26 @@ export function updateConfig(data) {
     data
   })
 }
+
+export function getWhiteList() {
+  return request({
+    'url': '/mgr/config/whiteList',
+    'method': 'get'
+  })
+}
+
+export function deleteWhiteIp(data) {
+  return request({
+    'url': '/mgr/config/deleteWhiteIp',
+    'method': 'post',
+    data
+  })
+}
+
+export function addWhiteIp(data) {
+  return request({
+    'url': '/mgr/config/addWhiteIp',
+    'method': 'post',
+    data
+  })
+}
