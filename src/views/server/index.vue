@@ -47,6 +47,11 @@
           {{ scope.row.PrivateIp }}
         </template>
       </el-table-column>
+      <el-table-column label="Host IP" width="150" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.HostIp }}
+        </template>
+      </el-table-column>
       <el-table-column label="Public IP" width="150" align="center">
         <template slot-scope="scope">
           {{ scope.row.PublicIp }}
