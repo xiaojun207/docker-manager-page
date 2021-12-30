@@ -44,10 +44,13 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('登录') }}</el-button>
 
-      <div class="tips">
-      </div>
+      <div class="tips" />
 
+      <div>
+        <el-link type="primary" @click="$router.push({ path: '/forget' })">忘记密码？</el-link>
+      </div>
     </el-form>
+
   </div>
 </template>
 
@@ -98,7 +101,7 @@ export default {
       immediate: true
     }
   },
-  created(){
+  created() {
     rsa.initEncrypt()
   },
   methods: {

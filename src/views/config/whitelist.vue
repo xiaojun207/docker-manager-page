@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div style="padding-bottom: 10px">
-      <el-button type="primary" @click="addWhiteIp">{{ $t('添加IP') }}</el-button>
+      <el-button type="primary" @click="addWhiteIp">{{ $t('添加') }} IP</el-button>
     </div>
     <el-table
       v-loading="listLoading"
@@ -53,11 +53,11 @@ export default {
       })
     },
     addWhiteIp() {
-      this.$prompt('请输入IP', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt(this.$t('请输入') + 'IP', this.$t('提示'), {
+        confirmButtonText: this.$t('确定'),
+        cancelButtonText: this.$t('取消'),
         inputPattern: /^((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?)(,((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))|\*)((\/([012]\d|3[012]|\d))?))*$/,
-        inputErrorMessage: 'IP格式不正确'
+        inputErrorMessage: 'IP' + this.$t('格式不正确')
       }).then(({ value }) => {
         addWhiteIp({ IP: value }).then(r => {
           this.$message(this.$t('添加成功'))

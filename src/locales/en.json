@@ -129,6 +129,20 @@
   "在线": "Online",
   "总计": "Total",
   "运行容器": "ContainerRunning",
-  "过滤关键字": "filter key word"
-
+  "过滤关键字": "filter key word",
+  "忘记密码": "Forget password",
+  "管理员找回密码": "Forget admin password",
+  "非管理员找回密码": "Non administrator retrieve password",
+  "用户名或邮箱": "Username or email",
+  "重置密码": "Reset password",
+  "请输入用户名或邮箱": "Please input username or email",
+  "控制台验证码": "Console verification code",
+  "邮箱验证码": "Mail verification code",
+  "获取验证码": "Get verification code",
+  "请输入验证码": "Please input verification code",
+  "验证码将会打印到docker-manager的控制台日志": "The verification code will be printed to the docker-manager's console log",
+  "请输入": "Please input ",
+  "提示": "Tip",
+  "格式不正确": "Incorrect format",
+  "白名单IP": "IP White list"
 }

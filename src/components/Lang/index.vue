@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     changeLanguage(lang) {
-      console.log('lang:', lang)
+      // console.log('lang:', lang)
       // 保存语言配置到localStorage
       localStorage.setItem('locale', lang)
       localStorage.locale = lang

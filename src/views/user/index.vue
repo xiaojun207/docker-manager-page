@@ -68,19 +68,20 @@
     <el-dialog
       :title="$t('添加用户')"
       :visible.sync="dialogVisible"
-      width="30%">
-      <el-form label-position="right" label-width="120px" v-loading="formLoading" :model="formUser">
+      width="30%"
+    >
+      <el-form v-loading="formLoading" :model="formUser" label-position="right" label-width="120px">
         <el-form-item :label="$t('昵称')" :rules="rules.nickname">
-          <el-input v-model="formUser.nickname" :placeholder="$t('请输入昵称')"/>
+          <el-input v-model="formUser.nickname" :placeholder="$t('请输入昵称')" />
         </el-form-item>
         <el-form-item :label="$t('用户名')" :rules="rules.username">
-          <el-input v-model="formUser.username"  :placeholder="$t('请输入用户名')"/>
+          <el-input v-model="formUser.username" :placeholder="$t('请输入用户名')" />
         </el-form-item>
         <el-form-item :label="$t('手机')" prop="mobile" :rules="rules.mobile">
-          <el-input v-model="formUser.mobile"  :placeholder="$t('请输入手机号码')"/>
+          <el-input v-model="formUser.mobile" :placeholder="$t('请输入手机号码')" />
         </el-form-item>
         <el-form-item :label="$t('邮箱')" prop="email" :rules="rules.email">
-          <el-input v-model="formUser.email"  :placeholder="$t('请输入邮箱地址')"/>
+          <el-input v-model="formUser.email" :placeholder="$t('请输入邮箱地址')" />
         </el-form-item>
         <el-form-item :label="$t('密码')" :rules="rules.password">
           <el-input v-model="formUser.password" :placeholder="$t('请输入密码')" show-password />

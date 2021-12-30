@@ -70,3 +70,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function forgetPassword(data) {
+  return request({
+    url: '/user/forgetPassword',
+    method: 'post',
+    data
+  })
+}
