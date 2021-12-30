@@ -144,5 +144,6 @@
   "请输入": "Please input ",
   "提示": "Tip",
   "格式不正确": "Incorrect format",
-  "白名单IP": "IP White list"
+  "白名单IP": "IP White list",
+  "请联系管理员，重置密码": "Please contact the administrator to reset the password"
 }
