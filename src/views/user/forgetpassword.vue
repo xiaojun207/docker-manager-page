@@ -25,7 +25,7 @@
             <el-input v-model="form.code" :placeholder="$t('请输入验证码')" >
               <el-select slot="prepend" v-model="form.codeType" :placeholder="$t('请选择')" style="width: 200px;">
                 <el-option :label="$t('控制台验证码')" value="console">{{ $t('控制台验证码') }}</el-option>
-                <el-option :label="$t('邮箱验证码')" value="mail">{{ $t('邮箱验证码') }}</el-option>
+<!--                <el-option :label="$t('邮箱验证码')" value="mail">{{ $t('邮箱验证码') }}</el-option>-->
               </el-select>
               <el-button slot="append" type="primary" @click="onGetCode">{{ $t('获取验证码') }}</el-button>
             </el-input>
