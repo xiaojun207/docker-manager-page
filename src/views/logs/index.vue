@@ -122,7 +122,7 @@ export default {
     },
     initWebSocket() { // 初始化weosocket
       console.log('location.protocol:', location)
-      const proto = (location.protocol === 'http:' ? 'ws:' : 'wss')
+      const proto = (location.protocol === 'http:' ? 'ws:' : 'wss:')
       const wsUri = proto + location.host + '/dockerMgrApi/ws/log?containerId=' + this.form.containerId // ws地址
       this.websock = new WebSocket(wsUri)
       this.websock.onopen = this.websocketonopen
