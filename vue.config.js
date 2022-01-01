@@ -43,7 +43,7 @@ module.exports = {
     },
     proxy: {
       '/dockerMgrApi/ws/log': {
-        target: 'ws://' + TargetHost,
+        target: 'http://' + TargetHost,
         changeOrigin: true,
         ws: true,
         pathRewrite: {

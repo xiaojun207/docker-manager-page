@@ -1,3 +1,8 @@
+
+export function WsHost() {
+  return (location.protocol === 'http:' ? 'ws:' : 'wss:') + location.host
+}
+
 /**
  * Created by PanJiaChen on 16/11/18.
  */

@@ -1,3 +1,7 @@
+export function ContainerShortId(containerId) {
+  return containerId.substr(0, 12)
+}
+
 /**
  * {IP: "0.0.0.0", PrivatePort: 3000, PublicPort: 3001, Type: "tcp"}
  * @param p

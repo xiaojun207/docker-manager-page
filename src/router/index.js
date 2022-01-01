@@ -147,6 +147,12 @@ export const constantRoutes = [
         name: 'tailLog',
         component: () => import('@/views/logs/index'),
         meta: { title: '实时日志', icon: 'el-icon-s-order' }
+      },
+      {
+        path: 'connect',
+        name: 'connect',
+        component: () => import('@/views/container/connect'),
+        meta: { title: '连接容器', icon: 'el-icon-s-order' }
       }
     ]
   },

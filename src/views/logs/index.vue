@@ -33,7 +33,7 @@
 <script>
 import { getContainerInfos } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
-import { formatDate } from '@/utils/index'
+import { formatDate, WsHost } from '@/utils/index'
 
 export default {
   filters: {
@@ -122,29 +122,28 @@ export default {
     },
     initWebSocket() { // 初始化weosocket
       console.log('location.protocol:', location)
-      const proto = (location.protocol === 'http:' ? 'ws:' : 'wss:')
-      const wsUri = proto + location.host + '/dockerMgrApi/ws/log?containerId=' + this.form.containerId // ws地址
+      const wsUri = WsHost() + '/dockerMgrApi/ws/log?containerId=' + this.form.containerId // ws地址
       this.websock = new WebSocket(wsUri)
-      this.websock.onopen = this.websocketonopen
-      this.websock.onerror = this.websocketonerror
-      this.websock.onmessage = this.websocketonmessage
-      this.websock.onclose = this.websocketclose
+      this.websock.onopen = this.websocketOnopen
+      this.websock.onerror = this.websocketOnerror
+      this.websock.onmessage = this.websocketOnmessage
+      this.websock.onclose = this.websocketOnclose
     },
-    websocketonopen() {
+    websocketOnopen() {
       this.isConnected = true
       console.log('WebSocket连接成功')
       this.listLogs.push({ 'ts': '', 'line': this.$t('连接成功.') })
       const d = {
         'ch': 'base.ht.ping'
       }
-      this.websocketsend(JSON.stringify(d))
+      this.websocketSend(JSON.stringify(d))
     },
-    websocketonerror(e) { // 错误
+    websocketOnerror(e) { // 错误
       this.isConnected = false
       console.log('WebSocket连接发生错误', e)
       this.listLogs.push({ 'ts': '', 'line': this.$t('连接发生错误.') })
     },
-    websocketonmessage(e) { // 数据接收
+    websocketOnmessage(e) { // 数据接收
       const msg = JSON.parse(e.data)
       if (msg.ch === 'docker.container.log.line') {
         this.listLogs.push(msg.d)
@@ -152,13 +151,14 @@ export default {
         div.scrollTop = div.scrollHeight
       }
     },
-    websocketsend(agentData) { // 数据发送
+    websocketSend(agentData) { // 数据发送
       this.websock.send(agentData)
     },
-    websocketclose(e) { // 关闭
+    websocketOnclose(e) { // 关闭
       this.isConnected = false
       console.log('connection closed ', e)
-      this.listLogs.push({ 'ts': '', 'line': this.$t('连接已关闭.') })
+      const d = { 'ts': '', 'line': this.$t('连接已关闭.') }
+      this.listLogs.push(d)
     },
     formatDate(d) {
       return formatDate(d)
