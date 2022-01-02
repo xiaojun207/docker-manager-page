@@ -7,6 +7,14 @@ export function getAppGroup() {
   })
 }
 
+export function delGroup(data) {
+  return request({
+    'url': '/mgr/app/group/del',
+    'method': 'post',
+    data
+  })
+}
+
 export function getAppList() {
   return request({
     'url': '/mgr/app/list',

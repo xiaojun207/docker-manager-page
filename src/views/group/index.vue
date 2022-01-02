@@ -10,7 +10,7 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index + 1 }}
+          {{ scope.row.Id }}
         </template>
       </el-table-column>
       <el-table-column label="ServiceName" width="270">
@@ -23,14 +23,18 @@
           {{ scope.row.ServerName }}
         </template>
       </el-table-column>
-
+      <el-table-column :label="$t('操作')" align="center" width="170">
+        <template slot-scope="scope">
+          <el-button :loading="listLoading" @click="delGroup(scope.row)" size="small" type="text">{{ $t("删除") }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
   </div>
 </template>
 
 <script>
-import { getAppGroup } from '@/api/app'
+import { getAppGroup, delGroup } from '@/api/app'
 
 export default {
   data() {
@@ -55,6 +59,14 @@ export default {
         //   this.list.push(item)
         // }
         this.listLoading = false
+      })
+    },
+    delGroup(row) {
+      this.listLoading = true
+      delGroup({ 'id': row.Id }).then(r => {
+        this.listLoading = false
+        this.$message(this.$t('成功'))
+        this.fetchData()
       })
     }
   }
