@@ -189,7 +189,7 @@ export const constantRoutes = [
         path: 'white',
         name: 'white',
         component: () => import('@/views/config/whitelist'),
-        meta: { title: '白名单IP', icon: 'el-icon-setting' }
+        meta: { title: '白名单IP', icon: 'el-icon-guide' }
       }
     ]
   },

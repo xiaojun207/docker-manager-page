@@ -47,8 +47,13 @@ export default {
   },
   methods: {
     fetchData() {
-      getTasks().then(response => {
-        this.list = response.data.slice(0, 8)
+      const page = {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      }
+      getTasks(page).then(r => {
+        this.list = r.data.list
       })
     },
     statusFilter(status) {
