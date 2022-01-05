@@ -66,6 +66,18 @@
       </el-table-column>
     </el-table>
 
+    <el-pagination
+      :hide-on-single-page="true"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page.currentPage"
+      :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
+      :page-size="page.pageSize"
+      layout="prev, pager, next, jumper, sizes, total"
+      :total="page.total"
+      style="width: 500px;margin: 10px auto 0;">
+    </el-pagination>
+
     <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
@@ -95,6 +107,11 @@ export default {
   data() {
     return {
       list: [],
+      page: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
       listLoading: true,
       dialogDetailVisible: false,
       selectRow: {},
@@ -141,10 +158,21 @@ export default {
     },
     fetchData() {
       this.listLoading = true
+      this.listQuery.currentPage = this.page.currentPage
+      this.listQuery.pageSize = this.page.pageSize
       getStatsList(this.listQuery).then(r => {
-        this.list = r.data
+        this.list = r.data.list
+        this.page = r.data.page
         this.listLoading = false
       })
+    },
+    handleSizeChange(val) {
+      this.page.pageSize = val
+      this.fetchData()
+    },
+    handleCurrentChange(val) {
+      this.page.currentPage = val
+      this.fetchData()
     },
     startLog(row) {
       const form = {
