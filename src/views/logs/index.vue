@@ -170,7 +170,8 @@ export default {
 <style scoped>
 .console {
   margin-top: 10px;
-  min-height: 600px;
+  min-height: 800px;
+  height: 90%;
   padding: 10px;
   background: #2b2b2b;
   color: white;

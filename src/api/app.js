@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getAppGroup() {
+export function getAppGroup(params) {
   return request({
     'url': '/mgr/app/group',
-    'method': 'get'
+    'method': 'get',
+    params
   })
 }
 
@@ -15,10 +16,11 @@ export function delGroup(data) {
   })
 }
 
-export function getAppList() {
+export function getAppList(params) {
   return request({
     'url': '/mgr/app/list',
-    'method': 'get'
+    'method': 'get',
+    params
   })
 }
 

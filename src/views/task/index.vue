@@ -13,7 +13,7 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('命令')" width="170">
+      <el-table-column :label="$t('命令')" width="230">
         <template slot-scope="scope">
           {{ scope.row.Ch }}
         </template>

@@ -30,6 +30,17 @@
       </el-table-column>
     </el-table>
 
+    <el-pagination
+      :hide-on-single-page="true"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page.currentPage"
+      :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
+      :page-size="page.pageSize"
+      layout="prev, pager, next, jumper, sizes, total"
+      :total="page.total"
+      style="width: 500px;margin: 0 auto;margin-top: 10px">
+    </el-pagination>
   </div>
 </template>
 
@@ -40,6 +51,11 @@ export default {
   data() {
     return {
       list: [],
+      page: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+      },
       listLoading: true
     }
   },
@@ -49,17 +65,22 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getAppGroup().then(r => {
-        this.list = r.data
-        // for (const k in r.data) {
-        //   const item = {
-        //     'appName': k,
-        //     'ServerNames': r.data[k]
-        //   }
-        //   this.list.push(item)
-        // }
+      this.listQuery = {}
+      this.listQuery.currentPage = this.page.currentPage
+      this.listQuery.pageSize = this.page.pageSize
+      getAppGroup(this.listQuery).then(r => {
+        this.list = r.data.list
+        this.page = r.data.page
         this.listLoading = false
       })
+    },
+    handleSizeChange(val) {
+      this.page.pageSize = val
+      this.fetchData()
+    },
+    handleCurrentChange(val) {
+      this.page.currentPage = val
+      this.fetchData()
     },
     delGroup(row) {
       this.listLoading = true
