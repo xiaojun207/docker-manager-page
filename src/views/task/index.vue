@@ -10,7 +10,7 @@
     >
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
-          {{ scope.$index + 1 }}
+          {{ scope.row.Id }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('命令')" width="230">
@@ -47,6 +47,11 @@
           <span v-if="scope.row.Code === '100200'" style="color: #03c961;">{{ $t('成功') }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('操作')" align="center" width="170">
+        <template slot-scope="scope">
+          <el-button :loading="listLoading" @click="del(scope.row)" size="small" type="text">{{ $t("删除") }}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-pagination
@@ -64,7 +69,7 @@
 </template>
 
 <script>
-import { getTasks } from '@/api/task'
+import { getTasks, delTask } from '@/api/task'
 import { formatDate } from '@/utils/index.js'
 
 export default {
@@ -104,6 +109,14 @@ export default {
     },
     formatDate(d) {
       return formatDate(d)
+    },
+    del(row) {
+      this.listLoading = true
+      delTask({ 'id': row.Id }).then(r => {
+        this.listLoading = false
+        this.$message(this.$t('成功'))
+        this.fetchData()
+      })
     }
   }
 }

@@ -7,3 +7,11 @@ export function getTasks(params) {
     params
   })
 }
+
+export function delTask(data) {
+  return request({
+    'url': '/mgr/task/del',
+    'method': 'post',
+    data
+  })
+}
