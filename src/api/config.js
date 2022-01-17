@@ -37,3 +37,10 @@ export function addWhiteIp(data) {
     data
   })
 }
+
+export function getForbiddenList() {
+  return request({
+    'url': '/base/forbidden/log',
+    'method': 'get'
+  })
+}

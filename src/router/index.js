@@ -190,6 +190,12 @@ export const constantRoutes = [
         name: 'white',
         component: () => import('@/views/config/whitelist'),
         meta: { title: '白名单IP', icon: 'el-icon-guide' }
+      },
+      {
+        path: 'forbidden',
+        name: 'forbidden',
+        component: () => import('@/views/config/forbidden'),
+        meta: { title: '禁用记录IP', icon: 'el-icon-document' }
       }
     ]
   },
