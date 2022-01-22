@@ -17,7 +17,7 @@
       {{ $t('连接日志') }}
     </el-button>
     <el-button :loading="loading" class="filter-item" type="primary" :disabled="!isConnected" @click="disconnectLog()">
-      {{ $t('断开连接') }}
+      {{ $t('断开日志') }}
     </el-button>
     <el-link :underline="false">  </el-link>
     <div class="console">

@@ -76,7 +76,7 @@
   "目标容器": "Dest Container",
   "显示日志系统时间": "Show log system time",
   "连接日志": "Connect log",
-  "断开连接": "Disconnect log",
+  "断开日志": "Disconnect log",
   "必须选择容器": "Must select a container",
   "正在连接...": "Connecting ...",
   "连接成功.": "Connected.",
@@ -145,5 +145,9 @@
   "提示": "Tip",
   "格式不正确": "Incorrect format",
   "白名单IP": "IP White list",
-  "请联系管理员，重置密码": "Please contact the administrator to reset the password"
+  "请联系管理员，重置密码": "Please contact the administrator to reset the password",
+  "禁用记录": "Forbidden Record",
+  "连接容器": "Connect Container",
+  "连接": "Connect",
+  "断开连接": "Disconnect"
 }

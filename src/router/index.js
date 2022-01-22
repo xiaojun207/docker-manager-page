@@ -195,7 +195,7 @@ export const constantRoutes = [
         path: 'forbidden',
         name: 'forbidden',
         component: () => import('@/views/config/forbidden'),
-        meta: { title: '禁用记录IP', icon: 'el-icon-document' }
+        meta: { title: '禁用记录', icon: 'el-icon-document' }
       }
     ]
   },
