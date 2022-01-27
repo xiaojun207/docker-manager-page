@@ -65,6 +65,18 @@
       </el-table-column>
     </el-table>
 
+    <el-pagination
+      :hide-on-single-page="true"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page.currentPage"
+      :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
+      :page-size="page.pageSize"
+      layout="prev, pager, next, jumper, sizes, total"
+      :total="page.total"
+      style="width: 500px;margin: 0 auto;margin-top: 10px">
+    </el-pagination>
+
     <el-dialog
       :title="$t('添加用户')"
       :visible.sync="dialogVisible"
@@ -133,6 +145,11 @@ export default {
         email: '',
         password: '',
         role: ''
+      },
+      page: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
       }
     }
   },
@@ -142,10 +159,19 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getUserList().then(r => {
-        this.list = r.data
+      getUserList(this.page).then(r => {
+        this.list = r.data.list
+        this.page = r.data.page
         this.listLoading = false
       })
+    },
+    handleSizeChange(val) {
+      this.page.pageSize = val
+      this.fetchData()
+    },
+    handleCurrentChange(val) {
+      this.page.currentPage = val
+      this.fetchData()
     },
     formatDate(t) {
       return formatDate(t)
