@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="activeName" type="card" >
-      <el-tab-pane label="表单模式" name="first">
+      <el-tab-pane label="表单模式" name="2">
         <publish-form></publish-form>
       </el-tab-pane>
-      <el-tab-pane label="Yaml模式" name="second">
+      <el-tab-pane label="Yaml模式" name="3">
         <div style="color: #90949b;font-size: 14px;padding: 10px">使用docker compose yaml格式规范</div>
         <yaml-editor v-model="yamlData"/>
 
@@ -13,7 +13,7 @@
         </el-select>
         <el-button type="primary" style="width: 200px" @click="onSubmit">{{ $t('发布') }}</el-button>
       </el-tab-pane>
-      <el-tab-pane label="Json模式" name="third" disabled>
+      <el-tab-pane label="Json模式" name="4" disabled>
         <json-editor ref="jsonEditor" v-model="jsonData" />
       </el-tab-pane>
     </el-tabs>
@@ -57,7 +57,7 @@ export default {
       form: {
         ServerNames: []
       },
-      activeName: 'second',
+      activeName: '2',
       yamlData: DefaultYamlData,
       jsonData: JSON.parse(DefaultJsonData)
     }

@@ -88,6 +88,12 @@ export const constantRoutes = [
         meta: { title: '应用列表', icon: 'el-icon-notebook-2' }
       },
       {
+        path: 'flowline',
+        name: 'flowLine',
+        component: () => import('@/views/app/flowline/index'),
+        meta: { title: '流水线', icon: 'el-icon-notebook-2' }
+      },
+      {
         path: 'group',
         name: 'Group',
         component: () => import('@/views/group/index'),
