@@ -21,8 +21,9 @@
         </div>
       </el-form-item>
 
-      <el-form-item :label="$t('推送触发')">
-        <el-checkbox v-model="form.webHook">{{ $t('推送到master时触发流水线') }}</el-checkbox><br>
+      <el-form-item :label="$t('触发方式')">
+        <el-radio v-model="form.webHook" label="2">{{ $t('立即执行') }}</el-radio><br>
+        <el-radio v-model="form.webHook" label="1">{{ $t('推送到master时触发流水线') }}</el-radio>
         webhook配置参数：http://dockermanager.my, application/json, secret
       </el-form-item>
 
@@ -41,12 +42,14 @@
 
 <script>
 
+import { saveApp } from '@/api/app'
+
 export default {
   name: 'FlowLine',
   data() {
     return {
       form: {
-        sourceUrl: '',
+        sourceUrl: 'https://github.com/xiaojun207/docker-manager.git',
         branch: 'master',
         port: 80,
         dockerfile: './Dockerfile',
@@ -57,7 +60,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message('流水线功能开发中...')
+      console.log('flowline:', this.form)
+      saveApp(this.form).then(r => {
+        console.log('saveApp:', r)
+        this.$message(r.msg)
+      })
     }
   }
 }

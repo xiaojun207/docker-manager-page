@@ -40,12 +40,12 @@
         </template>
       </el-table-column>
       <el-table-column label="Tags" align="center">
-        <template slot="header" slot-scope="scope">
+        <template slot="header">
           Tags
-          <el-input v-model="search" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px"/>
+          <el-input v-model="search" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px" />
         </template>
         <template slot-scope="scope">
-          <div v-for="item in formatTags(scope.row.RepoTags)" :key="item">{{item}}</div>
+          <div v-for="item in formatTags(scope.row.RepoTags)" :key="item">{{ item }}</div>
         </template>
       </el-table-column>
       <el-table-column label="ImageId" align="center">
@@ -76,15 +76,15 @@
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      style="width: 500px;margin: 10px auto 0;"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
-      layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 0 auto;margin-top: 10px">
-    </el-pagination>
+      layout="prev, pager, next, jumper, sizes, total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" />
+
     <el-dialog v-loading="detailLoading" :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}
@@ -177,6 +177,9 @@ export default {
       getImageList(this.listQuery).then(r => {
         this.list = r.data.list
         this.page = r.data.page
+        if (!this.list) {
+          this.list = []
+        }
         this.list.sort(function(a, b) {
           return a.ServerName.localeCompare(b.ServerName)
         })

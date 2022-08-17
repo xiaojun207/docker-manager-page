@@ -220,6 +220,9 @@ export default {
       getContainers(this.listQuery).then(r => {
         this.list = r.data.list
         this.page = r.data.page
+        if (!this.list) {
+          this.list = []
+        }
         this.list.sort(function(a, b) {
           return a.ServerName.localeCompare(b.ServerName)
         })

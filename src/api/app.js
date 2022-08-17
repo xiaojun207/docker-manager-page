@@ -8,6 +8,14 @@ export function getAppGroup(params) {
   })
 }
 
+export function saveApp(data) {
+  return request({
+    'url': '/mgr/app/group/saveApp',
+    'method': 'post',
+    data
+  })
+}
+
 export function delGroup(data) {
   return request({
     'url': '/mgr/app/group/del',

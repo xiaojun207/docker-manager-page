@@ -60,21 +60,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/user',
-    component: Layout,
-    redirect: '/user/index',
-    name: 'User',
-    meta: { title: '用户管理', icon: 'el-icon-user' },
-    children: [
-      {
-        path: 'index',
-        name: 'UserIndex',
-        component: () => import('@/views/user/index'),
-        meta: { title: '用户列表', icon: 'el-icon-user' }
-      }
-    ]
-  },
-  {
     path: '/app',
     component: Layout,
     redirect: '/app/index',
@@ -175,6 +160,21 @@ export const constantRoutes = [
         name: 'List',
         component: () => import('@/views/image/index'),
         meta: { title: '镜像管理', icon: 'el-icon-document-copy' }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user/index',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'el-icon-user' },
+    children: [
+      {
+        path: 'index',
+        name: 'UserIndex',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户列表', icon: 'el-icon-user' }
       }
     ]
   },
