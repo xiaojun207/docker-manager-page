@@ -1,3 +1,4 @@
+import i18n from '@/i18n'
 
 export function WsHost() {
   return (location.protocol === 'http:' ? 'ws:' : 'wss:') + location.host
@@ -76,14 +77,14 @@ export function formatTime(time, option) {
   const diff = (now - d) / 1000
 
   if (diff < 30) {
-    return '刚刚'
+    return i18n.t('刚刚')
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
+    return Math.ceil(diff / 60) + i18n.t('分钟前')
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
+    return Math.ceil(diff / 3600) + i18n.t('小时前')
   } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
+    return i18n.t('1天前')
   }
   if (option) {
     return parseTime(time, option)
