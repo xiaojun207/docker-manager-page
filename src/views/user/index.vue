@@ -67,15 +67,15 @@
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 0 auto;margin-top: 10px">
-    </el-pagination>
+      style="width: 500px;margin: 0 auto;margin-top: 10px"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog
       :title="$t('添加用户')"

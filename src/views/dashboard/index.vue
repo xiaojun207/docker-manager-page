@@ -10,7 +10,7 @@
         {{ $t("刷新容器状态") }}
       </el-button>
     </div>
-    <panel-group  />
+    <panel-group />
 
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <transaction-table />

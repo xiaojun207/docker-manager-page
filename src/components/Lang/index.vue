@@ -1,7 +1,7 @@
 <template>
   <div style="float: left">
     <el-select v-model="lang" style="width: 90px;height: 30px;margin-right: 10px;border: none;" size="mini" @change="changeLanguage">
-      <el-option v-for="item in langs" :key="item.value" :label="item.label" :value="item.value"/>
+      <el-option v-for="item in langs" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
   </div>
 </template>

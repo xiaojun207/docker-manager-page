@@ -6,15 +6,15 @@
 
     <div class="right-menu">
       <a href="https://hub.docker.com/r/xiaojun207/docker-manager/tags" target="_blank">
-          <div style="float: left;margin-right: 40px;color: #3f3e3e;">
-            <el-badge :value="version.upgrade?'new':''" class="item" style="line-height: 30px">{{ $t('当前版本') }} : {{ version.current}}</el-badge>
-          </div>
+        <div style="float: left;margin-right: 40px;color: #3f3e3e;">
+          <el-badge :value="version.upgrade?'new':''" class="item" style="line-height: 30px">{{ $t('当前版本') }} : {{ version.current }}</el-badge>
+        </div>
       </a>
       <lang />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <el-avatar :src="avatar">
-            <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
+            <img src="@/assets/default.png">
           </el-avatar>
           <i class="el-icon-caret-bottom" />
         </div>
@@ -37,13 +37,8 @@
       </el-dropdown>
     </div>
 
-    <el-dialog
-      title="添加用户"
-      :visible.sync="dialogVisible"
-      width="30%">
-
-      <el-form label-position="right" ref="form" v-loading="loading" :model="form" label-width="80px">
-
+    <el-dialog title="添加用户" :visible.sync="dialogVisible" width="30%">
+      <el-form ref="form" v-loading="loading" label-position="right" :model="form" label-width="80px">
         <el-form-item :label="$t('旧密码')">
           <el-input v-model="form.OldPassword" :placeholder="$t('请输入旧密码')" show-password />
         </el-form-item>
@@ -69,6 +64,11 @@ import { getVersion } from '@/api/version'
 import { VersionCompare } from '@/utils/index'
 
 export default {
+  components: {
+    Breadcrumb,
+    Hamburger,
+    Lang
+  },
   data() {
     return {
       dialogVisible: false,
@@ -83,11 +83,6 @@ export default {
         NewPassword: ''
       }
     }
-  },
-  components: {
-    Breadcrumb,
-    Hamburger,
-    Lang
   },
   computed: {
     ...mapGetters([

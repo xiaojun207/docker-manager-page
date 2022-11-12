@@ -41,7 +41,7 @@
         <template slot-scope="scope">
           <el-button type="text" :title="scope.row.Name" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
-        <template slot="header" slot-scope="scope">
+        <template slot="header">
           Name
           <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('输入关键字过滤')" style="width: 140px" />
         </template>
@@ -66,28 +66,12 @@
           <div v-for="item in scope.row.Ports" :key="item.key">{{ PortToStr(item) }}</div>
         </template>
       </el-table-column>
-<!--      <el-table-column label="Command" width="200" align="center">-->
-<!--        <template slot-scope="scope">-->
-<!--          {{ scope.row.Command }}-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column label="Mounts">-->
-<!--        <template slot-scope="scope">-->
-<!--          <div v-for="item in scope.row.Mounts" :key="item.key">{{ item.Source + ' : ' + item.Destination }}</div>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
       <el-table-column align="center" prop="created_at" label="Created" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span>{{ formatDate(scope.row.Created) }}</span>
         </template>
       </el-table-column>
-<!--      <el-table-column align="center" prop="created_at" label="Update" width="200">-->
-<!--        <template slot-scope="scope">-->
-<!--          <i class="el-icon-time" />-->
-<!--          <span>{{ formatDate(scope.row.Update) }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
       <el-table-column class-name="status-col" :label="$t('操作')" width="170" align="center">
         <template slot-scope="scope">
           <el-button :loading="listLoading" :disabled="scope.row.State !== 'running'" type="text" @click="ContainerOperator('stop', scope.row )">{{ $t('停止') }}</el-button>
@@ -99,15 +83,15 @@
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 10px auto 0;">
-    </el-pagination>
+      style="width: 500px;margin: 10px auto 0;"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>

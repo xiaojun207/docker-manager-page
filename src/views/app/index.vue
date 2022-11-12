@@ -45,23 +45,23 @@
       </el-table-column>
       <el-table-column :label="$t('操作')" align="center" width="170">
         <template slot-scope="scope">
-          <el-button :loading="listLoading" @click="delApp(scope.row)" size="small" type="text">{{ $t("删除") }}</el-button>
-          <el-button :loading="listLoading" @click="updateApp(scope.row)" size="small" type="text">{{ $t("更新") }}</el-button>
+          <el-button :loading="listLoading" size="small" type="text" @click="delApp(scope.row)">{{ $t("删除") }}</el-button>
+          <el-button :loading="listLoading" size="small" type="text" @click="updateApp(scope.row)">{{ $t("更新") }}</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 0 auto;margin-top: 10px">
-    </el-pagination>
+      style="width: 500px;margin: 0 auto;margin-top: 10px"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
     <el-dialog :visible.sync="dialogDetailVisible" title="详情">
       <pre>
 {{ JSON.stringify(selectRow, null, 2) }}

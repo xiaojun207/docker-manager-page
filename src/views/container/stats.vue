@@ -68,15 +68,15 @@
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 10px auto 0;">
-    </el-pagination>
+      style="width: 500px;margin: 10px auto 0;"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>

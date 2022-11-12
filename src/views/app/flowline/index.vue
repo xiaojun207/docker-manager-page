@@ -3,21 +3,21 @@
 
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item :label="$t('代码URL')">
-        <el-input v-model="form.sourceUrl" :placeholder="$t('请输入代码git URL')"/>
+        <el-input v-model="form.sourceUrl" :placeholder="$t('请输入代码git URL')" />
       </el-form-item>
 
       <el-form-item :label="$t('分支')">
-        <el-input v-model="form.branch" :placeholder="$t('请输入分支')"/>
+        <el-input v-model="form.branch" :placeholder="$t('请输入分支')" />
       </el-form-item>
 
       <el-form-item :label="$t('端口')">
-        <el-input v-model="form.port" :placeholder="$t('请输入端口')"/>
+        <el-input v-model="form.port" :placeholder="$t('请输入端口')" />
       </el-form-item>
 
       <el-form-item :label="$t('Dockerfile位置')">
-        <el-input v-model="form.dockerfile" :placeholder="$t('请输入Dockerfile位置')"/>
+        <el-input v-model="form.dockerfile" :placeholder="$t('请输入Dockerfile位置')" />
         <div>
-         打包命令： docker build -t ${Image} -f ./Dockerfile .
+          打包命令： docker build -t ${Image} -f ./Dockerfile .
         </div>
       </el-form-item>
 
@@ -28,7 +28,7 @@
       </el-form-item>
 
       <el-form-item :label="$t('镜像仓库地址')">
-        <el-input v-model="form.imageUrl" :placeholder="$t('请输入镜像仓库地址URL')"/>
+        <el-input v-model="form.imageUrl" :placeholder="$t('请输入镜像仓库地址URL')" />
         镜像仓库授权方式
       </el-form-item>
 

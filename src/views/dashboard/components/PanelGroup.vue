@@ -11,7 +11,7 @@
           </div>
           {{ $t("在线") }}
           <count-to :start-val="0" :end-val="dashboradSize.serverConnected" :duration="1" class="card-panel-num" />
-          <el-divider direction="vertical"></el-divider>
+          <el-divider direction="vertical" />
           {{ $t("总计") }} <count-to :start-val="0" :end-val="dashboradSize.server" :duration="1" class="card-panel-num" />
         </div>
       </div>
@@ -26,8 +26,8 @@
             {{ $t("容器") }}
           </div>
           {{ $t("运行中") }} <count-to :start-val="0" :end-val="dashboradSize.containerRun" :duration="1" class="card-panel-num" />
-          <el-divider direction="vertical"></el-divider>
-          {{ $t("已停止") }} <count-to :start-val="0" :end-val="dashboradSize.container - dashboradSize.containerRun" :duration="1" class="card-panel-num" style="color: red"/>
+          <el-divider direction="vertical" />
+          {{ $t("已停止") }} <count-to :start-val="0" :end-val="dashboradSize.container - dashboradSize.containerRun" :duration="1" class="card-panel-num" style="color: red" />
         </div>
       </div>
     </el-col>

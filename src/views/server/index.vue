@@ -17,7 +17,7 @@
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row )">{{ scope.row.Name }}</el-button>
         </template>
-        <template slot="header" slot-scope="scope" align="center">
+        <template slot="header" align="center">
           Name
           <el-input v-model="filterSearch.Name" size="mini" :placeholder="$t('过滤关键字')" style="width: 140px" />
         </template>
@@ -83,15 +83,15 @@
 
     <el-pagination
       :hide-on-single-page="true"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="page.currentPage"
       :page-sizes="[10, 30, 50, 100, 200, 300, 400]"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper, sizes, total"
       :total="page.total"
-      style="width: 500px;margin: 0 auto;margin-top: 10px">
-    </el-pagination>
+      style="width: 500px;margin: 0 auto;margin-top: 10px"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog :visible.sync="dialogDetailVisible" title="详情" @dragDialog="handleDrag">
       <pre>

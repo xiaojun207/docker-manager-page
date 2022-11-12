@@ -83,7 +83,8 @@
       :total="page.total"
       layout="prev, pager, next, jumper, sizes, total"
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange" />
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog v-loading="detailLoading" :visible.sync="dialogDetailVisible" :title="$t('详情')">
       <pre>

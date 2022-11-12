@@ -9,9 +9,8 @@
       :options="res.containerInfos"
       :props="{ expandTrigger: 'hover', emitPath: false }"
       style="width: 500px;margin-right: 10px;"
-    >
+    />
 
-    </el-cascader>
     <el-checkbox v-model="showSystemTime" style="margin-right: 10px">{{ $t('显示日志系统时间') }} </el-checkbox>
     <el-button :loading="loading" class="filter-item" type="primary" icon="el-icon-search" :disabled="isConnected" @click="fetchLogData()">
       {{ $t('连接日志') }}
@@ -19,7 +18,7 @@
     <el-button :loading="loading" class="filter-item" type="primary" :disabled="!isConnected" @click="disconnectLog()">
       {{ $t('断开日志') }}
     </el-button>
-    <el-link :underline="false">  </el-link>
+    <el-link :underline="false" />
     <div class="console">
       <div v-for="item in listLogs" id="log" ref="log" :key="item">
         <div>

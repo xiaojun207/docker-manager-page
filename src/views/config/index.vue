@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
-    <div style="margin-bottom: 15px;">
-    </div>
+    <div style="margin-bottom: 15px;" />
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -15,9 +14,9 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column :label="$t('字段名称')"  width="270">
+      <el-table-column :label="$t('字段名称')" width="270">
         <template slot-scope="scope">
-          <el-button type="text" >{{ scope.row.Name }}</el-button>
+          <el-button type="text">{{ scope.row.Name }}</el-button>
         </template>
       </el-table-column>
 
@@ -30,7 +29,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('备注')"  width="270">
+      <el-table-column :label="$t('备注')" width="270">
         <template slot-scope="{row}">
           <template v-if="row.edit">
             <el-input v-model="row.Memo" class="edit-input" size="small" />

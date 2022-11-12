@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 
-
 export function getContainers(params) {
   return request({
     url: '/mgr/container/list',
