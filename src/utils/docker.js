@@ -37,7 +37,7 @@ export function FormatName(names) {
 }
 
 /**
- * [ { "Destination": "/var/lib/mysql", "Mode": "", "Propagation": "rprivate", "RW": true, "Source": "/Users/kdaxrobot/docker/local-mysql", "Type": "bind" },...]
+ * [ { "Destination": "/var/lib/mysql", "Mode": "", "Propagation": "rprivate", "RW": true, "Source": "$USER_HOME/docker/local-mysql", "Type": "bind" },...]
  * @param volumes
  * @constructor
  */
