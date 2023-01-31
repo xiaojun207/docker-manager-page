@@ -4,7 +4,6 @@ function i18nTrans(s:string) {
   if (i18n && i18n.t) {
     return i18n.t(s)
   }
-  console.log('i18nTrans:', i18n)
   return s
 }
 

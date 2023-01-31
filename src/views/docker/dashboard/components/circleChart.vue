@@ -12,7 +12,6 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'  //这个只能在setup 中用
-const { t } = useI18n()//这个只能在setup 中用
 import Chart from '@/components/charts/index.vue'
 import { getDashboardSize } from '@/api/dashboard'
 import getOption from './modules/circle'
@@ -21,6 +20,7 @@ export default defineComponent({
     Chart
   },
   setup() {
+    const { t } = useI18n()//这个只能在setup 中用
     const serverOptions = reactive(getOption(t("主机"), [
       {value: 0, name: t('在线') },
       {value: 0, name: t('离线') }

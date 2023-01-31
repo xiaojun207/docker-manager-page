@@ -188,5 +188,6 @@ export default {
     "镜像仓库地址": "Image repositories",
     "请输入镜像仓库地址URL": "Please enter the image repositories",
     "镜像仓库授权方式": "Image repositories authorization method",
-    "保存": "Save"
+    "保存": "Save",
+    "离线": "Offline"
 }
