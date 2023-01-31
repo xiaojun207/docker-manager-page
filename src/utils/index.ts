@@ -1,4 +1,12 @@
-import i18n from '@/locale'
+import i18n from '@/locale/index'
+
+function i18nTrans(s:string) {
+  if (i18n && i18n.t) {
+    return i18n.t(s)
+  }
+  console.log('i18nTrans:', i18n)
+  return s
+}
 
 export function WsHost() {
   return (location.protocol === 'http:' ? 'ws:' : 'wss:') + location.host
@@ -79,14 +87,14 @@ export function formatTime(time:any, option:any) {
   const diff = (now - d) / 1000
 
   if (diff < 30) {
-    return i18n.t('刚刚')
+    return i18nTrans('刚刚')
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + i18n.t('分钟前')
+    return Math.ceil(diff / 60) + i18nTrans('分钟前')
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + i18n.t('小时前')
+    return Math.ceil(diff / 3600) + i18nTrans('小时前')
   } else if (diff < 3600 * 24 * 2) {
-    return i18n.t('1天前')
+    return i18nTrans('1天前')
   }
   if (option) {
     return parseTime(time, option)
@@ -113,24 +121,18 @@ export function formatDate(d:any) {
 
   const date = new Date(d)
   const YY = date.getFullYear() + '-'
-  const MM =
-    (date.getMonth() + 1 < 10
-      ? '0' + (date.getMonth() + 1)
-      : date.getMonth() + 1) + '-'
+  const MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
   const DD = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-  const hh =
-    (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
-  const mm =
-    (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':'
-  const ss =
-    (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()) + '.'
+  const hh = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
+  const mm = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':'
+  const ss = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()) + '.'
   let sss = ''
   if (date.getMilliseconds() < 10) {
     sss = '00' + date.getMilliseconds()
   } else if (date.getMilliseconds() < 100) {
     sss = '0' + date.getMilliseconds()
   } else {
-    sss = date.getMilliseconds()
+    sss = '' + date.getMilliseconds()
   }
   return YY + MM + DD + ' ' + hh + mm + ss + sss
 }

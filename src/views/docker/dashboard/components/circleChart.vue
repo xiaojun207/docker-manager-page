@@ -11,22 +11,23 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'  //这个只能在setup 中用
+const { t } = useI18n()//这个只能在setup 中用
 import Chart from '@/components/charts/index.vue'
 import { getDashboardSize } from '@/api/dashboard'
-
 import getOption from './modules/circle'
 export default defineComponent({
   components: {
     Chart
   },
   setup() {
-    const serverOptions = reactive(getOption("主机", [
-      {value: 0, name: '在线' },
-      {value: 0, name: '离线' }
+    const serverOptions = reactive(getOption(t("主机"), [
+      {value: 0, name: t('在线') },
+      {value: 0, name: t('离线') }
     ]))
-    const containerOptions = reactive(getOption("容器", [
-      {value: 0, name: '运行中' },
-      {value: 0, name: '已停止' }
+    const containerOptions = reactive(getOption(t("容器"), [
+      {value: 0, name: t('运行中') },
+      {value: 0, name: t('已停止') }
     ]))
     const s = ref({
       serverConnected:0,
@@ -43,13 +44,13 @@ export default defineComponent({
       s.value = resp.data
       const d = s.value
       serverOptions.series[0].data = [
-        {value: d.serverConnected, name: '在线' },
-        {value: d.server - d.serverConnected, name: '离线' }
+        {value: d.serverConnected, name: t('在线') },
+        {value: d.server - d.serverConnected, name: t('离线') }
       ]
 
       containerOptions.series[0].data = [
-        {value: d.containerRun, name: '运行中' },
-        {value: d.container - d.containerRun, name: '已停止' }
+        {value: d.containerRun, name: t('运行中') },
+        {value: d.container - d.containerRun, name: t('已停止') }
       ]
 
     })
