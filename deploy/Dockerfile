@@ -13,10 +13,10 @@ RUN npm rebuild node-sass --force
 
 #配置环境变量
 ENV HOST 0.0.0.0
-ENV PORT 9528
+ENV PORT 3001
 
 #容器对外暴露的端口号
-EXPOSE 9528
+EXPOSE 3001
 
 #容器启动时执行的命令 每个Dockerfile只有一个CMD命令 多了则会覆盖之前的CMD
 CMD ["npm", "run","dev"]

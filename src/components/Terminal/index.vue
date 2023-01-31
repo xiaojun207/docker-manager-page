@@ -1,7 +1,9 @@
 <template>
   <div id="xterm" class="xterm" />
 </template>
+
 <script>
+import { $emit } from '@/utils/events'
 import 'xterm/css/xterm.css'
 import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
@@ -20,7 +22,7 @@ export default {
   mounted() {
     // this.initSocket()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.close()
   },
   methods: {
@@ -42,7 +44,7 @@ export default {
       term.focus()
       this.term = term
       this.isConnected = true
-      this.$emit('onInitTerm')
+      $emit(this, 'onInitTerm')
     },
     initSocket(wsUrl) {
       // console.log('Terminal.initSocket:', wsUrl)
@@ -74,16 +76,17 @@ export default {
       this.socket.onclose = () => {
         // console.log('close socket')
         this.isConnected = false
-        this.$emit('onSocketClose')
+        $emit(this, 'onSocketClose')
       }
     },
     socketOnError() {
       this.socket.onerror = () => {
         // console.log('socket 链接失败')
         this.isConnected = false
-        this.$emit('onSocketError')
+        $emit(this, 'onSocketError')
       }
     }
-  }
+  },
+  emits: ['onInitTerm', 'onSocketClose', 'onSocketError']
 }
 </script>

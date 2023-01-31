@@ -1,8 +1,8 @@
 appname='docker-manager'
 
-yarn build:prod
+yarn build
 
-rm -rf $USER_HOME/go/src/docker-manager/views/static/
+rm -rf $USER_HOME/go/src/docker-manager/views/assets/
 cp -r ./dist/** $USER_HOME/go/src/docker-manager/views/
 
 #
