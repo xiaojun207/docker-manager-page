@@ -1,6 +1,6 @@
 /**
  * v-waterMarker可接收参数，均为非必填
- * { text: 'docker-manager-ui', font: '16px Microsoft JhengHei', textColor: '#000' }
+ * { text: 'docker-manager-page', font: '16px Microsoft JhengHei', textColor: '#000' }
  */
 import { Color, FontFamilyProperty, FontProperty } from 'csstype'
 import type { Directive, DirectiveBinding } from 'vue'
@@ -25,7 +25,7 @@ function addWaterMarker(str: string, parentNode: HTMLElement, font: FontProperty
   cans.fillStyle = textColor || 'rgba(180, 180, 180, 0.3)'
   cans.textAlign = 'left'
   cans.textBaseline = 'middle'
-  cans.fillText(str ||'docker-manager-ui' , can.width / 10, can.height / 2)
+  cans.fillText(str ||'docker-manager-page' , can.width / 10, can.height / 2)
   parentNode.style.backgroundImage = 'url(' + can.toDataURL('image/png') + ')'
 }
 

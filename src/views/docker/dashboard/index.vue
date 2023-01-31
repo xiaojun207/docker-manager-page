@@ -1,26 +1,6 @@
 <template>
   <div class="dashboard-editor-container">
-    <div class="filter-container" style="margin-left: 15px; margin-top: 15px">
-      <el-button
-        class="filter-item"
-        type="primary"
-        :loading="loading"
-        :icon="ElIconRefresh"
-        @click="refreshContainerList"
-      >
-        {{ $t('刷新容器列表') }}
-      </el-button>
-
-      <el-button
-        class="filter-item"
-        type="primary"
-        :loading="loading"
-        :icon="ElIconRefresh"
-        @click="refreshContainerStats"
-      >
-        {{ $t('刷新容器状态') }}
-      </el-button>
-    </div>
+    <CircleChart/>
     <panel-group />
 
     <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
@@ -34,10 +14,14 @@ import { Refresh as ElIconRefresh } from '@element-plus/icons'
 import { refreshContainerList, refreshContainerStats } from '@/api/dashboard'
 import PanelGroup from './components/PanelGroup.vue'
 import TransactionTable from './components/TransactionTable.vue'
+import PieChart from './components/pieChart.vue'
+import CircleChart from './components/circleChart.vue'
 
 export default {
   name: 'DashboardAdmin',
   components: {
+    CircleChart,
+    PieChart,
     PanelGroup,
     TransactionTable
   },

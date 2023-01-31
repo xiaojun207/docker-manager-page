@@ -1,4 +1,4 @@
-## docker-manager-uid
+## docker-manager-page
 
 English | [简体中文](./README.zh-CN.md)
 
@@ -7,7 +7,7 @@ English | [简体中文](./README.zh-CN.md)
 1. get the source code project
 
    ```
-   git clone https://github.com/xiaojun207/docker-manager-ui.git
+   git clone https://github.com/xiaojun207/docker-manager-page.git
    ```
 
    

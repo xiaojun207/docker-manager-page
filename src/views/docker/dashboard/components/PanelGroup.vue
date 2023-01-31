@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" style="display: none;">
       <div class="card-panel" @click="handleSetLineChartData('Server')">
         <div class="card-panel-icon-wrapper icon-people">
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
@@ -27,7 +27,7 @@
         </div>
       </div>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col"  style="display: none;">
       <div class="card-panel" @click="handleSetLineChartData('Container')">
         <div class="card-panel-icon-wrapper icon-message">
           <svg-icon icon-class="message" class-name="card-panel-icon" />
@@ -157,14 +157,14 @@ export default {
     this.fetchData()
   },
   mounted() {
-    // 定时器
-    const timer = setInterval(() => {
-      this.fetchData() // 你所加载数据的方法
-    }, 1000*30)
-    // 销毁定时器
-    $once(this, 'hook:beforeDestroy', () => {
-      clearInterval(timer)
-    })
+    // // 定时器
+    // const timer = setInterval(() => {
+    //   this.fetchData() // 你所加载数据的方法
+    // }, 1000*30)
+    // // 销毁定时器
+    // $once(this, 'hook:beforeDestroy', () => {
+    //   clearInterval(timer)
+    // })
   },
   methods: {
     handleSetLineChartData(type) {
@@ -184,7 +184,7 @@ export default {
 
 <style lang="scss" scoped>
 .panel-group {
-  margin-top: 18px;
+  //margin-top: 18px;
   .card-panel-col {
     margin-bottom: 32px;
   }

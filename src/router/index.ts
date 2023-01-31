@@ -3,7 +3,7 @@
  * @Date: 2022-01-25 09:51:12
  * @LastEditors: luoxi
  * @LastEditTime: 2022-01-25 12:25:51
- * @FilePath: \docker-manager-ui\src\router\index.ts
+ * @FilePath: \docker-manager-page\src\router\index.ts
  * @Description:
  */
 /**

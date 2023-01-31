@@ -1,11 +1,11 @@
-## docker-manager-ui
+## docker-manager-page
 
 ## 使用
 
 1. 获取源码资源包
 
    ```
-   git clone https://github.com/xiaojun207/docker-manager-ui.git
+   git clone https://github.com/xiaojun207/docker-manager-page.git
    ```
 
    

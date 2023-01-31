@@ -3,7 +3,7 @@
  * @Date: 2022-01-25 09:51:12
  * @LastEditors: luoxi
  * @LastEditTime: 2022-01-25 12:40:52
- * @FilePath: \docker-manager-ui\vite.config.ts
+ * @FilePath: \docker-manager-page\vite.config.ts
  * @Description:
  */
 import { ConfigEnv, UserConfigExport } from 'vite'

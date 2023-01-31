@@ -1,6 +1,6 @@
 import request from '@/utils/system/request'
 
-export function getAppGroup(params) {
+export function getAppGroup(params:any) {
   return request({
     url: '/mgr/app/group',
     method: 'get',
@@ -8,7 +8,7 @@ export function getAppGroup(params) {
   })
 }
 
-export function saveApp(data) {
+export function saveApp(data:any) {
   return request({
     url: '/mgr/app/group/saveApp',
     method: 'post',
@@ -16,7 +16,7 @@ export function saveApp(data) {
   })
 }
 
-export function delGroup(data) {
+export function delGroup(data:any) {
   return request({
     url: '/mgr/app/group/del',
     method: 'post',
@@ -24,7 +24,7 @@ export function delGroup(data) {
   })
 }
 
-export function getAppList(params) {
+export function getAppList(params:any) {
   return request({
     url: '/mgr/app/list',
     method: 'get',
@@ -32,7 +32,7 @@ export function getAppList(params) {
   })
 }
 
-export function delApp(data) {
+export function delApp(data:any) {
   return request({
     url: '/mgr/app/del',
     method: 'post',
@@ -40,7 +40,7 @@ export function delApp(data) {
   })
 }
 
-export function updateApp(data) {
+export function updateApp(data:any) {
   return request({
     url: '/mgr/app/update',
     method: 'post',
