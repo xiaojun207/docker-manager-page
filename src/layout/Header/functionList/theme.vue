@@ -1,6 +1,6 @@
 <template>
   <div :title="$t('message.system.setting.name')" @click="drawerChange(true)">
-    <i class="sfont system-shezhi"></i>
+    <el-icon><Shop /></el-icon>
   </div>
   <el-drawer
     :title="$t('message.system.setting.name')"
@@ -158,7 +158,7 @@ export default defineComponent({
       outline: none;
     }
   }
-  
+
   .list {
     padding: 0 20px;
     &-item {

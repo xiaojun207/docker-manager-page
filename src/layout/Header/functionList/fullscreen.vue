@@ -1,5 +1,6 @@
 <template>
   <div :title="isFullscreen ? $t('message.system.fullScreenBack') : $t('message.system.fullScreen')">
+    <el-icon><component is="FullScreen" @click="toggle" /></el-icon>
     <i class="sfont" :class="isFullscreen ? 'system-quanping':'system-quanping1'" @click="toggle"></i>
   </div>
 </template>

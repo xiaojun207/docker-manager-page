@@ -1,5 +1,7 @@
 <template>
-  <a href="https://github.com/xiaojun207/docker-manager" target="_blank" :title="$t('message.system.github')"><i class="sfont system-github" @click="toggle"></i></a>
+  <el-link :href="'https://github.com/xiaojun207/docker-manager'" target="_blank" :title="$t('Github')">
+    <div style="line-height: 30px;">{{$t('Github')}}</div>
+  </el-link>
 </template>
 
 <script lang="ts">
