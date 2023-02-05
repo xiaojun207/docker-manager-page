@@ -48,8 +48,8 @@
 <script>
 import { Search as ElIconSearch } from '@element-plus/icons'
 import { getContainerInfos } from '@/api/container'
-import { WsHost } from '@/utils/index'
-import { ContainerShortId } from '@/utils/docker'
+import { WsHost } from '@/utils/index.ts'
+import { ContainerShortId } from '@/utils/docker.ts'
 import Terminal from '@/components/Terminal/index.vue'
 
 export default {

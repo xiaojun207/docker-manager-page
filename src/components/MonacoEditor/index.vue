@@ -95,7 +95,11 @@ export default defineComponent({
       console.log("Monaco.onBeforeUnmount")
       if (editor) {
         editor.dispose() // 销毁编辑器
+        editor = null
+        monacoInited = false
       } else {
+        editor = null
+        monacoInited = false
         console.log("onBeforeUnmount editor is not")
       }
     })

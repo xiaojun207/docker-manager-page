@@ -99,6 +99,7 @@
         <el-link
           type="info"
           :underline="false"
+          target="_blank"
           href="https://docs.docker.com/storage/bind-mounts/#start-a-container-with-a-bind-mount"
           style="margin-left: 10px"
         >
@@ -204,6 +205,7 @@
         <el-link
           type="info"
           :underline="false"
+          target="_blank"
           href="https://docs.docker.com/config/containers/logging/configure/"
           style="margin-left: 10px"
         >
