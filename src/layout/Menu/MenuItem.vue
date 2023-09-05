@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { Plus, Setting } from '@element-plus/icons'
+import { Plus, Setting } from '@element-plus/icons-vue'
 import appLink from './Link.vue'
 export default defineComponent({
   name: 'menu-item',

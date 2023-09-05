@@ -10,7 +10,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { RefreshRight, Close } from '@element-plus/icons'
+import { RefreshRight, Close } from '@element-plus/icons-vue'
 export default defineComponent({
   props: {
     menu: {

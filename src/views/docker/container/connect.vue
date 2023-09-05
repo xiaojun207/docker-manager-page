@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { Search as ElIconSearch } from '@element-plus/icons'
+import { Search as ElIconSearch } from '@element-plus/icons-vue'
 import { getContainerInfos } from '@/api/container'
 import { WsHost } from '@/utils/index.ts'
 import { ContainerShortId } from '@/utils/docker.ts'

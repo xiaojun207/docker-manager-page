@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import { Search as ElIconSearch } from '@element-plus/icons'
+import { Search as ElIconSearch } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils/index'
 import { getStats, getStatsList } from '@/api/stats'
 import { getContainerInfos } from '@/api/container'

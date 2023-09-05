@@ -6,6 +6,7 @@ const files= import.meta.globEager('./modules/*.ts')
 
 let messages: LocaleMessages<VueMessageType> = {}
 Object.keys(files).forEach((c: string) => {
+
   const module = files[c].default
   const moduleName: string = c.replace(/^\.\/(.*)\/(.*)\.\w+$/, '$2')
   messages[moduleName] = module
@@ -20,8 +21,10 @@ const i18n = createI18n({
   __VUE_I18N_FULL_INSTALL__: false,
   locale: locale,
   fallbackLocale: 'zh-cn',
-  messages,
-  silentTranslationWarn: true
+  legacy: false,
+  globalInjection: true, //全局生效$t
+  silentTranslationWarn: true,
+  messages
 })
 
 document.getElementsByTagName('html')[0].setAttribute('lang', locale)

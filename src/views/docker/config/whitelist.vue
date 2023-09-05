@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { Delete as ElIconDelete } from '@element-plus/icons'
+import { Delete as ElIconDelete } from '@element-plus/icons-vue'
 import { getWhiteList, deleteWhiteIp, addWhiteIp } from '@/api/config'
 
 export default {

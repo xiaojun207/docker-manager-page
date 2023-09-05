@@ -182,7 +182,7 @@
 </template>
 
 <script>
-import { Search as ElIconSearch } from '@element-plus/icons'
+import { Search as ElIconSearch } from '@element-plus/icons-vue'
 import {
   getContainer,
   getContainers,

@@ -100,7 +100,7 @@ import { LayerInterface } from "@/components/layer/index.vue";
 import { ElMessage } from "element-plus";
 import Table from "@/components/table/index.vue";
 import Layer from "./layer.vue";
-import { Plus, Delete, Search } from '@element-plus/icons'
+import { Plus, Delete, Search } from '@element-plus/icons-vue'
 export default defineComponent({
   components: {
     Table,

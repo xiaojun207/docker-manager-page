@@ -282,7 +282,7 @@
 </template>
 
 <script>
-import { Plus as ElIconPlus, Delete as ElIconDelete } from '@element-plus/icons'
+import { Plus as ElIconPlus, Delete as ElIconDelete } from '@element-plus/icons-vue'
 import { publishDocker } from '@/api/container'
 import { getServerNames } from '@/api/server'
 

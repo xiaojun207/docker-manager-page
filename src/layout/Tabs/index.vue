@@ -47,7 +47,7 @@ import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 
 /** 引用图标 */
-import { ArrowDown, RefreshLeft, CircleClose, FullScreen } from '@element-plus/icons'
+import { ArrowDown, RefreshLeft, CircleClose, FullScreen } from '@element-plus/icons-vue'
 
 import Item from './item.vue'
 import tabsHook from './tabsHook'

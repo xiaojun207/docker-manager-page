@@ -34,3 +34,13 @@ English | [简体中文](./README.zh-CN.md)
    npm run build
    ```
    
+5. or you can try
+
+   ```shell
+      yarn -i
+   ```
+   
+6. build
+   ```shell
+      yarn build
+   ```

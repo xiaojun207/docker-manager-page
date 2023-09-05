@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import { Search as ElIconSearch } from '@element-plus/icons'
+import { Search as ElIconSearch } from '@element-plus/icons-vue'
 import { getServerNames } from '@/api/server'
 import { getImage, getImageList, ImageOperator } from '@/api/image'
 import { formatDate } from '@/utils/index'

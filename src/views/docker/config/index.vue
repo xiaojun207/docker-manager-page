@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { Edit as ElIconEdit, Refresh as ElIconRefresh } from '@element-plus/icons'
+import { Edit as ElIconEdit, Refresh as ElIconRefresh } from '@element-plus/icons-vue'
 import { getConfig, updateConfig } from '@/api/config'
 
 export default {

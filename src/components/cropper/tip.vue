@@ -12,7 +12,7 @@
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import type Cropper from 'cropperjs'
-import { Rank, Crop, Refresh, Back, Right, Top, Bottom, ZoomIn, ZoomOut, RefreshLeft, RefreshRight, Sort } from '@element-plus/icons'
+import { Rank, Crop, Refresh, Back, Right, Top, Bottom, ZoomIn, ZoomOut, RefreshLeft, RefreshRight, Sort } from '@element-plus/icons-vue'
 
 const props = defineProps({
   cropper: {

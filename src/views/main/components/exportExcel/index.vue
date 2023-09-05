@@ -63,7 +63,7 @@ import { getData } from '@/api/table'
 import { ElMessage } from 'element-plus'
 import { aoaToSheetXlsx } from './ExportExcel'
 import { useI18n } from 'vue-i18n'
-import { Download, Search } from '@element-plus/icons'
+import { Download, Search } from '@element-plus/icons-vue'
 export default defineComponent({
   name: 'crudTable',
   components: {

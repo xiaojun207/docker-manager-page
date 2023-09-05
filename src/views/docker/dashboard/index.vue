@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Refresh as ElIconRefresh } from '@element-plus/icons'
+import { Refresh as ElIconRefresh } from '@element-plus/icons-vue'
 import { refreshContainerList, refreshContainerStats } from '@/api/dashboard'
 import PanelGroup from './components/PanelGroup.vue'
 import TransactionTable from './components/TransactionTable.vue'

@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { Search as ElIconSearch } from '@element-plus/icons'
+import { Search as ElIconSearch } from '@element-plus/icons-vue'
 import { getContainerInfos } from '@/api/container'
 import { getLogStart, getLogClose } from '@/api/logs'
 import { formatDate, WsHost } from '@/utils/index'
