@@ -42,7 +42,7 @@ export function getAppSize() {
   })
 }
 
-export function refreshContainerList(data) {
+export function refreshContainerList(data:any) {
   return request({
     url: '/mgr/containers/update',
     method: 'post',
@@ -50,7 +50,7 @@ export function refreshContainerList(data) {
   })
 }
 
-export function refreshContainerStats(data) {
+export function refreshContainerStats(data:any) {
   return request({
     url: '/mgr/stats/update',
     method: 'post',

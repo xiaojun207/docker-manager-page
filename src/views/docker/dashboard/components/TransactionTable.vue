@@ -40,10 +40,11 @@ export default {
       return str
     },
     statusFilter_filter(status) {
+      // "success", "info", "warning", "danger", ""
       const statusMap = {
-        '000000': '正在进行',
-        100200: '完成',
-        100100: '失败'
+        '000000': 'warning',
+        100200: 'success',
+        100100: 'danger'
       }
       return statusMap[status]
     },

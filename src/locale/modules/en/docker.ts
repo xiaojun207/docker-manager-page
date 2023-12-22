@@ -1,6 +1,7 @@
 export default {
     "message": "Hello i18n !!",
     "hello": "Hello i18n !!",
+    "Github": "Github",
     "登录": "Login",
     "用户名": "Username",
     "密码": "Password",

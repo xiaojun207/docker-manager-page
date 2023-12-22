@@ -24,14 +24,12 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n'
 import { changeTitle } from '@/utils/system/title'
+import store from "@/store";
 
 
 export default defineComponent({
   setup() {
     const { locale, t, messages } = useI18n()
-
-      console.log("messages:", messages.value)
-
     const route = useRoute()
     const store = useStore()
     // 国际化语言切换

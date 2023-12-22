@@ -1,6 +1,6 @@
 <template>
   <div :title="$t('message.system.setting.name')" @click="drawerChange(true)">
-    <el-icon><Shop /></el-icon>
+    <el-icon><Setting /></el-icon>
   </div>
   <el-drawer
     :title="$t('message.system.setting.name')"

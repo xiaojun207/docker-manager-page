@@ -1,4 +1,4 @@
-import axios , { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios'
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse, AxiosInstance, InternalAxiosRequestConfig} from 'axios'
 import store from '@/store'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const baseURL: any = import.meta.env.VITE_BASE_URL
@@ -10,12 +10,15 @@ const service: AxiosInstance = axios.create({
 
 // 请求前的统一处理
 service.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig<any>) => {
     // JWT鉴权处理
     if (store.getters['user/token']) {
-      // @ts-ignore
+        // @ts-ignore
         config.headers.authorization = store.state.user.token
     }
+    const lang = store.state.app.lang || navigator.language // 初次进入，采用浏览器当前设置的语言，默认采用中文
+    config.headers['Accept-Language'] = lang
+
     return config
   },
   (error: AxiosError) => {
