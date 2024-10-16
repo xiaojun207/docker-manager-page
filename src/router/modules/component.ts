@@ -54,11 +54,6 @@ const route: Route[] = [
         component: createNameComponent(() => import('@/views/main/components/rightMenu/index.vue')),
         meta: { title: 'message.menu.component.rightMenu' },
       },
-      {
-        path: 'exportExcel',
-        component: createNameComponent(() => import('@/views/main/components/exportExcel/index.vue')),
-        meta: { title: 'message.menu.component.exportExcel' },
-      },
     ]
   }
 ]

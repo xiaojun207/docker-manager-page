@@ -32,6 +32,14 @@ const route: Route[] = [
                     () => import('@/views/docker/config/forbidden.vue')
                 ),
                 meta: { title: '禁用记录', icon: 'WindPower' }
+            },
+            {
+                path: 'warn',
+                name: 'warn',
+                component: createNameComponent(
+                    () => import('@/views/docker/config/warn.vue')
+                ),
+                meta: { title: '告警配置', icon: 'Warn' }
             }
         ]
     }

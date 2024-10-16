@@ -32,7 +32,6 @@
     "vue-router": "4.2.4",
     "vue3-count-to": "^1.1.2",
     "vuex": "^4.1.0",
-    "xlsx": "^0.18.5",
     "xterm": "^5.2.1",
     "xterm-addon-attach": "^0.8.0",
     "xterm-addon-fit": "^0.7.0",

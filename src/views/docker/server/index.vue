@@ -19,6 +19,11 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
+<!--      <el-table-column :label="$t('环境')" width="80" align="center">-->
+<!--        <template v-slot="scope">-->
+<!--          <span>{{ scope.row.Name }}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column label="Name">
         <template v-slot="scope">
           <el-button type="primary" link @click="openDetail(scope.row)">{{
